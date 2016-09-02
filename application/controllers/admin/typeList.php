@@ -14,9 +14,9 @@ class TypeList extends MY_Controller {
             parent::__construct();
         }
 
-
         $data['title'] = '积分商城';
         $data['num'] = 'hello,world';
+
         $this->assign('data',$data);
         $this->assign('tmp','admin下的文件');
         $this->display('admin/addType.tpl');

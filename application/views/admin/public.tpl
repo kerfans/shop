@@ -11,8 +11,7 @@
     <link href="{$smarty.const.JS_ADMIN_URL}js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
     <link href="{$smarty.const.CSS_ADMIN_URL}css/custom-styles.css" rel="stylesheet" />
-    <!-- Google Fonts-->
-    <link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
 </head>
 
 <body>
