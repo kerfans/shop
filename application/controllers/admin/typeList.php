@@ -13,15 +13,12 @@ class TypeList extends MY_Controller {
         {
             parent::__construct();
         }
-
-        $data['title'] = '积分商城';
-        $data['num'] = 'hello,world';
-
-        $this->assign('data',$data);
-        $this->assign('tmp','admin下的文件');
+        $m = 'kerfans';
+        $this -> load -> model('admin_model','ref');
+        $res = $this ->ref-> quen($m);
         $this->display('admin/addType.tpl');
     }
-    //编辑实体商品信息
+    //分类列表
     public function type_list()
     {
 
