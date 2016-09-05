@@ -8,12 +8,6 @@ function dd($s)
 	die;
 }
 
-// 获取最后一条sql
-function get_sql()
-{
-    echo $this->db->last_query();
-    die;
-}
 
 //获取当前登录IP地址
 function get_ip(){

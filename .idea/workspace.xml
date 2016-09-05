@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d26ff0f3-2611-414b-83ab-72da76fdd3c2" name="默认的" comment="添加全局变量" />
+    <list default="true" id="d26ff0f3-2611-414b-83ab-72da76fdd3c2" name="默认的" comment="添加全局变量">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/bonus_model.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/books_model.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/0f0e1d10a717147ef89a4a05d120b78d3bda9d88_0.file.index.html.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/1be9c1b82195f713342f71620eb0bb12e4b75566_0.file.index.tlp.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/1c3305d68e331d018d3170dc5e30b891752d25ce_0.file.editGood.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/24714b5fedf0d191d89caa4f7f95bb5fab56d359_0.file.addGoods.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/37c5bb889481c9013a434c873ffe00a9ba8e8034_0.file.countList.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/3e52da3a91008c8f0f857004c2dd8e12ea5d2245_0.file.public.html.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/46f4e68ddb79ee967920e421429a22371210f6a1_0.file.edit_goods.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/4d8962c0137643c8d15f66f6ce1b902d8e5076ad_0.file.layout.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/4e8f045fa9bfd416427381cda9d060bb9c5f65cc_0.file.addType.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/515834fbd7a36a000d77cdbcfe81d2b3769484f1_0.file.ads_list.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/5c9d54724dca660ded0c28244fbd155f57651283_0.file.test.html.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/6e06c73f80484fb1c1d3a8698909cc8dbbe95679_0.file.addFlus.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/b19bfd521fc6f348488888a9eb10c256b401d9d0_0.file.type_list.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/b88d90d46f28602b2f736fa54bcb537ce824b4e1_0.file.index.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/c78b8806176fdf09003ec36ccc4285c5f58874da_0.file.explain.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/e6588c72ed29ea055dfa3d913484c0307816d012_0.file.addAds.tpl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/f29a9628ceacd97cf791d0091477cecd7903d3ae_0.file.index.html.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates_c/f8967c5b7cf0ba21e9a56db1929a6dff2203a325_0.file.typeList.tpl.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/config/autoload.php" afterPath="$PROJECT_DIR$/application/config/autoload.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/admin/addCash.php" afterPath="$PROJECT_DIR$/application/controllers/admin/addCash.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/admin/typeList.php" afterPath="$PROJECT_DIR$/application/controllers/admin/typeList.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/helpers/common_helper.php" afterPath="$PROJECT_DIR$/application/helpers/common_helper.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/libraries/Cismarty.php" afterPath="$PROJECT_DIR$/application/libraries/Cismarty.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/admin_model.php" afterPath="$PROJECT_DIR$/application/models/admin_model.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/admin/addCash.tpl" afterPath="$PROJECT_DIR$/application/views/admin/addCash.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/admin/edit_cash.tpl" afterPath="$PROJECT_DIR$/application/views/admin/edit_cash.tpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates_c/0185be5e86c04f4ec49ebd4242c46ea33d1829a4_0.file.public.tpl.php" afterPath="$PROJECT_DIR$/templates_c/0185be5e86c04f4ec49ebd4242c46ea33d1829a4_0.file.public.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates_c/2f44efa65d231485c00ea0add30770dee0fee548_0.file.addCash.tpl.php" afterPath="$PROJECT_DIR$/templates_c/2f44efa65d231485c00ea0add30770dee0fee548_0.file.addCash.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates_c/46706585b265a8d6a606f33d9d3d16bb6ca787a5_0.file.showList.tpl.php" afterPath="$PROJECT_DIR$/templates_c/46706585b265a8d6a606f33d9d3d16bb6ca787a5_0.file.showList.tpl.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates_c/62e1fdcc044429461beff91145e956d339d6b917_0.file.edit_cash.tpl.php" afterPath="$PROJECT_DIR$/templates_c/62e1fdcc044429461beff91145e956d339d6b917_0.file.edit_cash.tpl.php" />
+    </list>
     <ignored path="shop.yaofang.cn.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -39,11 +73,71 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="public.tpl" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/views/admin/public.tpl">
+      <file leaf-file-name="typeList.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/admin/typeList.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+            <state relative-caret-position="437">
+              <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="showList.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/admin/showList.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="644">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin_model.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/models/admin_model.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bonus_model.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/models/bonus_model.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="22" column="84" selection-start-line="22" selection-start-column="73" selection-end-line="22" selection-end-column="84" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addCash.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/admin/addCash.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="321">
+              <caret line="70" column="43" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit_cash.tpl" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/admin/edit_cash.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="69">
+              <caret line="3" column="49" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addCash.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/admin/addCash.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="57" column="28" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -67,10 +161,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application/views/welcome_message.php" />
-        <option value="$PROJECT_DIR$/application/libraries/Cismarty.php" />
-        <option value="$PROJECT_DIR$/application/views/welcome.html" />
-        <option value="$PROJECT_DIR$/application/views/test.html" />
         <option value="$PROJECT_DIR$/application/views/index.html" />
         <option value="$PROJECT_DIR$/application/controllers/admin/Index.php" />
         <option value="$PROJECT_DIR$/application/controllers/welcome.php" />
@@ -84,7 +174,6 @@
         <option value="$PROJECT_DIR$/application/config/constants.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/application/config/config.php" />
-        <option value="$PROJECT_DIR$/application/config/autoload.php" />
         <option value="$PROJECT_DIR$/application/controllers/admin/add.php" />
         <option value="$PROJECT_DIR$/application/views/admin/goodsList.tpl" />
         <option value="$PROJECT_DIR$/application/views/admin/shi_editList.tpl" />
@@ -109,15 +198,20 @@
         <option value="$PROJECT_DIR$/application/config/routes.php" />
         <option value="$PROJECT_DIR$/application/views/admin/addGoods.tpl" />
         <option value="$PROJECT_DIR$/application/controllers/admin/addGoods.php" />
-        <option value="$PROJECT_DIR$/application/controllers/admin/addCash.php" />
-        <option value="$PROJECT_DIR$/application/views/admin/addCash.tpl" />
-        <option value="$PROJECT_DIR$/application/views/admin/edit_cash.tpl" />
         <option value="$PROJECT_DIR$/application/controllers/admin/showList.php" />
         <option value="$PROJECT_DIR$/application/views/admin/showList.tpl" />
-        <option value="$PROJECT_DIR$/application/helpers/common_helper.php" />
         <option value="dbtable:/98f12c65/0b29c4da-26ea-476b-9364-6a85d1490548/shop.ecs_point_goods_traffic" />
-        <option value="$PROJECT_DIR$/application/models/admin_model.php" />
+        <option value="$PROJECT_DIR$/application/helpers/common_helper.php" />
         <option value="$PROJECT_DIR$/application/controllers/admin/typeList.php" />
+        <option value="$PROJECT_DIR$/application/models/admin_model.php" />
+        <option value="$PROJECT_DIR$/application/models/book_model.php" />
+        <option value="$PROJECT_DIR$/application/models/books_model.php" />
+        <option value="$PROJECT_DIR$/application/libraries/Cismarty.php" />
+        <option value="$PROJECT_DIR$/application/config/autoload.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/addCash.tpl" />
+        <option value="$PROJECT_DIR$/application/models/bonus_model.php" />
+        <option value="$PROJECT_DIR$/application/controllers/admin/addCash.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/edit_cash.tpl" />
       </list>
     </option>
   </component>
@@ -168,7 +262,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -241,8 +334,31 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop.yaofang.cn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shop.yaofang.cn" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -271,14 +387,14 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\wamp\www\shop.yaofang.cn\resources\style" />
-      <recent name="D:\wamp\www\shop.yaofang.cn\resources" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\wamp\www\shop.yaofang.cn\resources\style\css" />
       <recent name="D:\wamp\www\shop.yaofang.cn\resources" />
       <recent name="D:\wamp\www\shop.yaofang.cn\application\views\welcome" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\wamp\www\shop.yaofang.cn\resources\style" />
+      <recent name="D:\wamp\www\shop.yaofang.cn\resources" />
     </key>
   </component>
   <component name="RunManager">
@@ -334,7 +450,8 @@
       <workItem from="1472800151015" duration="5702000" />
       <workItem from="1472825265090" duration="2620000" />
       <workItem from="1472909432371" duration="3352000" />
-      <workItem from="1473039639944" duration="614000" />
+      <workItem from="1473039639944" duration="23389000" />
+      <workItem from="1473068828219" duration="1696000" />
     </task>
     <task id="LOCAL-00001" summary="添加全局变量">
       <created>1472826853018</created>
@@ -354,7 +471,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57104000" />
+    <option name="totallyTimeSpent" value="81575000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -366,8 +483,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1749634" sideWeight="0.49346405" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -412,21 +529,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/views/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="12" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/libraries/Cismarty.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/index.php" />
     <entry file="file://$PROJECT_DIR$/application/views/welcome/index.html" />
     <entry file="file://$PROJECT_DIR$/system/index.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -525,13 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/admin/addCash.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/admin/edit_goods.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
@@ -543,20 +638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="71" column="96" selection-start-line="71" selection-start-column="96" selection-end-line="71" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/admin/edit_cash.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="30" column="63" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/admin/showList.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="643">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -581,13 +662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="65" column="2" selection-start-line="65" selection-start-column="2" selection-end-line="65" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -597,27 +671,6 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/0b29c4da-26ea-476b-9364-6a85d1490548/console.sql" />
     <entry file="dbDummy://dbtable:/98f12c65/0b29c4da-26ea-476b-9364-6a85d1490548/shop.ecs_point_goods_traffic" />
-    <entry file="file://$PROJECT_DIR$/application/helpers/common_helper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/admin/addCash.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/admin/addFlus.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/system/core/Controller.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -648,26 +701,100 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/admin_model.php">
+    <entry file="file://$PROJECT_DIR$/application/views/admin/public.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        <state relative-caret-position="414">
+          <caret line="18" column="49" selection-start-line="18" selection-start-column="49" selection-end-line="18" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/books_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="67" column="55" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/Cismarty.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/helpers/common_helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/showList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/addFlus.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/admin/typeList.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+        <state relative-caret-position="437">
+          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/admin/public.tpl">
+    <entry file="file://$PROJECT_DIR$/application/models/admin_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        <state relative-caret-position="437">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/addCash.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="70" column="43" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/bonus_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="22" column="84" selection-start-line="22" selection-start-column="73" selection-end-line="22" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/admin/addCash.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="57" column="28" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/admin/edit_cash.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="49" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
           <folding />
         </state>
       </provider>

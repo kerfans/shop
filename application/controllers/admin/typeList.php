@@ -13,9 +13,10 @@ class TypeList extends MY_Controller {
         {
             parent::__construct();
         }
-        $m = 'kerfans';
+        $m = 'admin';
         $this -> load -> model('admin_model','ref');
         $res = $this ->ref-> quen($m);
+        //dd($res);
         $this->display('admin/addType.tpl');
     }
     //分类列表

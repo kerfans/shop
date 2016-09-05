@@ -17,11 +17,9 @@ class Cismarty extends Smarty {
         $this->config_dir     = $this->ci->config->item('config_dir');   
         $this->template_ext   = $this->ci->config->item('template_ext');   
         $this->caching        = $this->ci->config->item('caching');   
-        $this->cache_lifetime = $this->ci->config->item('lefttime'); 
-
-       
+        $this->cache_lifetime = $this->ci->config->item('lefttime');
         $this->left_delimiter = '{';
         $this->right_delimiter = '}';
-         
+        $this->caching = false;
     }   
 } 
