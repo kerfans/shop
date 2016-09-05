@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/jquery.js"></script>
+    <title>需求管理-完善</title>
+    <script>
+		 function shop_mendian(pro_id){
+			 $.post('<?php echo SITE; ?>shop/get_mendian/'+pro_id, function(data){ 
+				 $("#shop_id").html(data);
+			 });
+		 }
+    </script>
+	<style>
+		a{text-decoration: none;}
+		button{ width:69px;
+				height:24px;
+				background:url(<?php echo SITE; ?>public/images/bc.jpg);
+				border:0;
+				color:#fff;
+			   cursor:pointer;"
+		}
+	</style>
+<body>
+<!--right厂家管理 查询系统 付款查询 start-->
+<div class="right" id="right">
+    <div class="right-main">
+        <div class="title"><span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;">需求管理</span><span style="font-size:14px; color:#3c8cc7; font-weight:bold;">-查看加盟商运费</span></div>
+        <div class="infor">
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding-left:50px;font-size:14px;">
+							请选择加盟分站：
+							<select  id="pro_id" onchange="show_dealer_shipping_fee(this.value)">
+								<option value="0">请选择</option>
+								<?php
+									foreach($dealer as $d){
+								?>
+									<option value="<?php echo $d['dealer_id'];?>"><?php echo '【'.$d['dealer_id'].'】'.$d['shop_name'];?></option>
+								<?php
+									}
+								?>
+							</select>
+                        </td>
+                    </tr>
+                </table>
+               <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="shipping_info">
+                    
+               </table>
+             
+        </div>
+    </div>
+	<script>
+		function show_dealer_shipping_fee(dealer_id){
+			$.post('<?php echo SITE; ?>mendian/show_shipping_fee/',{dealer_id:dealer_id},function(data){
+				$('#shipping_info').html(data);
+			});
+		}
+	</script>
+</div>
+</body>
+</html>

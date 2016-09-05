@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>京卫药业门店管理系统</title>
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<script>
+    //验证等级表单
+    function check() {
+        var fm = document.form;
+        if (fm.username.value == '') {
+            alert('警告：用户名不得为空');
+            fm.username.focus();
+            return false;
+        }
+        if (fm.password.value == '') {
+            alert('警告：密码不得为空');
+            fm.password.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+<body>
+<div class="warp-login">
+    <div class="log">
+        <form action="<?php echo SITE;?>admin/login" method="post" name="form">
+            <table cellpadding="0" cellspacing="0" style="margin:200px auto;">
+                <tr>
+                    <td height="30">用户名：</td>
+                    <td height="30"><img src="<?php echo SITE; ?>public/images/yhm1.jpg" /></td>
+                    <td><input class="tex1" type="text" name="username" id="username" /></td>
+                </tr>
+                <tr>
+                    <td height="30">密　码：</td>
+                    <td height="30"><img src="<?php echo SITE; ?>public/images/mm1.jpg" /></td>
+                    <td height="30"><input class="tex2" type="password" name="password" id="password" /></td>
+                </tr>
+                <tr>
+                    <td style="color:red;font-weight: bold;text-align:center;" colspan="3"><?php if(isset($mess)){echo $mess;}?></td>
+                </tr>
+                <tr>
+                    <td height="30" style="padding-left:10px;text-align:center;" colspan="3"><input type="submit" class="btn1" value="" onclick="return check();" style="cursor: pointer"/><input type="reset" class="btn2" value="" style="cursor: pointer"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

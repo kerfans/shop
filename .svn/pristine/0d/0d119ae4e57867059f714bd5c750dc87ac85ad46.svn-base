@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/jquery.js"></script>
+    <title>药品管理-品类管理</title>
+    <script>
+        function del(){
+            if(confirm("您确定要删除该数据么？")) // confirm("您确定要删除该数据么？");
+            {
+                return true;
+            }else {
+                return false;
+            }
+        }
+<!--        $(function(){-->
+<!--            $("#pro_id").change(function(){-->
+<!--                var pro_id=$("#pro_id").val();-->
+<!--                $.post('--><?php //echo SITE; ?><!--shop/get_mendian/'+pro_id, function(data){ $("#shop_id").html(data);});-->
+<!---->
+<!--            })-->
+<!--        })-->
+        function shop_mendian(i){
+                    var pro_id=$("#pro_id"+i).val();
+                    $.post('<?php echo SITE; ?>shop/get_mendian/'+pro_id, function(data){ $("#shop_id"+i).html(data);});
+        }
+    </script>
+
+<body>
+<!--right厂家管理 查询系统 付款查询 start-->
+<div class="right" id="right">
+    <div class="right-main">
+        <div class="title">
+            <span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;">需求管理</span>
+            <span style="font-size:14px; color:#3c8cc7; font-weight:bold;">-<?php echo $states_name;?></span>
+            <?php if($states==0||$states==5||$states==6){?>
+            <a href="<?php echo SITE; ?>mendian/display/5"  style="text-decoration: none;">
+                <input  type="button" value="转预存款" style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"/></a>&nbsp;&nbsp;&nbsp;
+
+            <a href="<?php echo SITE; ?>mendian/display/6"  style="text-decoration: none;">
+                <input  type="button" value="无法联系" style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"/></a>
+            <?php }?>
+        </div>
+        <div class="infor">
+
+            <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0">
+                <tr class="til">
+                    <td height="39" class="">操作</td>
+                    <td height="39" class="">编号</td>
+                    <?php if($states!=0){?>
+                        <td height="39" class="">配送类型</td>
+                    <?php }?>
+                    <td height="39" class="">咨询时间</td>
+                    <td height="39" class="">会员名</td>
+                    <td height="39" class="">顾客姓名</td>
+                    <td height="39" class="">电话</td>
+                    <td height="39" class="">负责门店</td>
+                    <td height="39" class="">信息登记员</td>
+                    <td height="39" class="">状态</td>
+                    <td height="39" class="">药师回访员</td>
+                    <td height="39" class="">回访时间</td>
+                    <?php if($states==5){?>
+                    <td height="39" class="">可用预存款</td>
+                    <?php }?>
+                    <td height="39" class="">来源</td>
+                    <!--
+                    <td height="39" class="">调配</td>
+                    -->
+                </tr>
+    <?php
+    if (!empty($order)){
+	foreach ($order as $key=>$val)
+	{
+        ?>
+                <tr class="list">
+                    <td bgcolor="#FFFFFF">
+                        <?php if($states==0){?>
+                            <a href="<?php echo SITE.'mendian/detail_show/'.$val["id"].'/'.$val["user_id"].'/'.$states; ?>">
+                                <?php if($val['is_chakan']==1){ echo "已查看";}else{echo "未查看";}?>
+                            </a>
+                        <?php }else{?>
+                            <a href="<?php echo SITE.'mendian/detail_show/'.$val["id"].'/'.$val["user_id"].'/'.$val["states"]; ?>">
+                                查看
+                            </a>
+                        <?php } ?>
+                        <!--
+                            <a href="<?php echo SITE.'mendian/del/'.$val["id"].'/'.$val["user_id"].'/'.$states; ?>" onclick="return confirm('您确定要删除该数据么?');">
+                                作废
+                            </a>
+                            -->
+
+                    </td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["id"];?></td>
+                    <?php if($states!=0){?>
+                        <td bgcolor="#FFFFFF"><?php echo $val["deliver_type_name"];?></td>
+                    <?php }?>
+                    <td bgcolor="#FFFFFF"><?php echo $val["addtime"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["username"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["customer_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["customer_tel"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["shop_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["a_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $states_name;?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["b_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["ctime"] ?></td>
+                    <?php if($states==5){?>
+                    <td bgcolor="#FFFFFF"><?php echo $val["money"] ?></td>
+                    <?php }?>
+                    <td bgcolor="#FFFFFF"><?php echo $val["from_id"] ?></td>
+                    <!--
+                    <td bgcolor="#FFFFFF">
+                     <form action="<?php echo SITE; ?>shop/tiaopei" mothod="post">
+                 调配到 <select  id="pro_id<?php echo $key;?>" name="shop_id" onchange="shop_mendian('<?php echo $key;?>');">
+                          <option value="0">请选择省份</option>
+                          <option value="1">北京</option>
+                          <option value="2">上海</option>
+                          <option value="3">辽宁</option>
+                          <option value="4">山东</option>
+                          <option value="5">江苏</option>
+                          <option value="6">陕西</option>
+                          <option value="7">广东</option>
+                          <option value="8">湖北</option>
+                      </select>
+                      <select  id="shop_id<?php echo $key;?>" name="shop_id">
+                         <option value="0">请选择门店</option>
+                      </select>
+                        <input  type="hidden" name="order_id" id="addr" value="<?php echo $val["id"] ?>"/>
+                        <input style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"    type="submit" value="确定" />
+                    </td>
+                    -->
+                </tr>
+              </form>
+        <?php } }else{ ?>
+        <tr style="background:#fff;"><td colspan="15" align="center">暂无数据</td></tr>
+        <?php }?>
+                <?php if(isset($page)&&!empty($page)){?>
+                    <tr class="list">
+                        <td bgcolor="#FFFFFF" colspan="15" class="pagination"><?php echo $page  ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+
+        </div>
+
+
+    </div>
+</div>
+<!--right厂家管理 查询系统 付款查询 end-->
+</body>
+</html>

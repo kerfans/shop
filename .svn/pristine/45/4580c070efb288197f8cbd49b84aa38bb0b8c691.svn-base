@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <script>
+        var show=new Array();
+        var shows;
+        window.onload=function(){
+            var oTab0=document.getElementById('tab0');
+            var oUl0=document.getElementById('ul0');
+            oUl0.style.display="none";
+            oTab0.onclick=function(){
+                if(!show[0]){
+                    oUl0.style.display="block";
+                }else{
+                    oUl0.style.display="none";
+                }
+                show[0] = !show[0];
+            }
+        }
+    </script>
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<!--left start-->
+<div class="left" id="left">
+        <h2 id="tab0"><a href="#">需求管理</a></h2>
+        <ul id="ul0">
+            <!--
+            <li><a href="<?php echo SITE; ?>shop/display_chuli" target="mainFrame">已沟通需求</a></li>
+            <li><a href="<?php echo SITE; ?>shop/display_fahuo" target="mainFrame">已标记需求</a></li>
+            <li><a href="<?php echo SITE; ?>shop/display_chengjiao" target="mainFrame">已确认需求</a></li>
+            <li><a href="<?php echo SITE; ?>shop/display_del" target="mainFrame">回收站</a></li>
+            <li><a href="<?php echo SITE; ?>shop/search" target="mainFrame">查询</a></li>
+            <br/>
+            -->
+            <li><a href="<?php echo SITE; ?>mendian/display/1" target="mainFrame">已沟通需求</a></li>
+            <li><a href="<?php echo SITE; ?>mendian/display/2" target="mainFrame">已确认需求</a></li>
+            <li><a href="<?php echo SITE; ?>mendian/display/7" target="mainFrame">已处理需求</a></li>
+            <li><a href="<?php echo SITE; ?>mendian/display/3" target="mainFrame">已完成需求</a></li>
+            <li><a href="<?php echo SITE; ?>mendian/display/4" target="mainFrame">已作废需求</a></li>
+            <li><a href="<?php echo SITE; ?>mendian/search_show" target="mainFrame">查询</a></li>
+        </ul>
+
+</div>
+<!--left end-->
+</body>
+</html>
+

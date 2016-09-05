@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>门店管理系统</title>
+</head>
+<frameset rows="83,*" frameborder="0" border="0" framespacing="0"  scrolling="no">
+    <frame src="<?php echo SITE."admin/top";?>"  scrolling="no" />
+    <frameset cols="180,7,*" name="pageframe" id="pageframe" framespacing="0" frameborder="0" border="0">
+        <frame src="<?php echo  SITE."admin/".$_SESSION['url'];?>" noresize="noresize" name="pageleft" id="pageleft" scrolling="no" />
+        <frame src="<?php echo SITE."admin/left_center";?>" noresize="noresize" name="pageline" id="pageline" scrolling="no" />
+        <frame src="<?php echo SITE."admin/right";?>" name="mainFrame" id="mainFrame" scrolling="yes" />
+    </frameset>
+</frameset>
+</html>

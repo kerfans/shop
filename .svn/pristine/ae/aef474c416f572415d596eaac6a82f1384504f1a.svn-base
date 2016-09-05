@@ -1,0 +1,660 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Administrator
+ * Date: 13-1-28
+ * Time: 上午10:51
+ * To change this template use File | Settings | File Templates.
+ */
+class Mendian_model extends CI_Model {
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
+    //获取商品id
+    function get_goods_need($id){
+        $sql="SELECT n.goods_id,g.goods_name FROM md_need as n,ecs_goods as g  WHERE n.goods_id=g.goods_id and n.id='$id' limit 1";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data[0];
+    }
+    //判断库存
+    function goods_kucun_num($goods_id,$shop_id){
+        if($shop_id<=20){
+            $sql="SELECT s.shop_id,s.shop_name,g.stock FROM yf_goods_dealer as g,md_shop as s  WHERE g.fz_shopid=s.bank and g.goods_id='$goods_id' and s.shop_id='$shop_id' limit 1";
+        }else{
+            $sql="SELECT s.shop_id,s.shop_name,g.stock FROM yf_goods_dealer as g,md_shop as s  WHERE g.dealer_id=s.dealer_id and g.goods_id='$goods_id' and s.shop_id='$shop_id' limit 1";
+        }
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data[0];
+    }
+    //异步获取限购数量
+    function get_goods_limit($goods_id){
+        $sql="SELECT limit_num FROM ecs_goods_index WHERE goods_id=$goods_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data[0]['limit_num'];
+    }
+    //插入发送的短信表中
+    function insert_sms($order_id,$add_time){
+        $sql="insert into yf_sms_order_chu(order_id,states,add_time)
+              values('{$order_id}',0,'{$add_time}')";
+        $this->db->query($sql);
+    }
+    //获取门店
+    function get_mendian($id){
+        $sql="SELECT shop_id,shop_name FROM md_shop WHERE pid=$id order by shop_name";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取全部门店
+    function get_all_mendian(){
+        $sql="SELECT shop_id,shop_name FROM md_shop  order by shop_id asc";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //根据shop_id获取全部门店
+    function get_one_mendian($shop_id){
+        $sql="SELECT shop_id,shop_name FROM md_shop  where shop_id=$shop_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //调配
+    function tiaopei($arr){
+        $sql = "update md_order set shop_id={$arr['shop_id']} where id={$arr['id']}";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //总条数 根据不同的状态
+    function get_order_count($states){
+        $sql="select count(1) as c  from md_order as o,md_shop as s where o.states=$states and o.shop_id=s.shop_id {$_SESSION['where']}";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data[0]['c'];
+    }
+   //需求列表 根据不同的状态
+    function get_order($states,$limit,$pageNum){
+        if($states==1||$states==2||$states==3){
+           $order_by="order by o.ctime desc";
+        }else{
+           $order_by="order by o.id desc";
+        }
+        $sql="SELECT
+	o.id,
+	o.user_id,
+	o.customer_name,
+	o.customer_tel,
+	o.a_name,
+	u.username,
+	o.shop_id,
+	o.states,
+	o.deliver_type,
+	o.b_name,
+	o.ctime,
+	o.addtime,
+	o.from_id,
+	s.shop_name,
+	o.is_chakan,
+	o.deliver_type
+FROM
+	md_order AS o
+	LEFT JOIN md_shop AS s on o.shop_id = s.shop_id
+    LEFT JOIN user as u    on o.user_id = u.userid
+WHERE
+       o.states=$states {$_SESSION['where']}
+       $order_by limit $pageNum,$limit";
+       $query = $this->db->query($sql);
+       $data = $query->result_array();
+       return $data;
+    }
+    //查询 总条数 根据不同的状态
+    function get_search_count(){
+        $sql="select count(1) as c from (select count(1)
+             from md_order as o
+                   LEFT JOIN md_need AS n on n.order_id = o.id
+                   LEFT JOIN ecs_goods AS g on g.goods_id = n.goods_id,
+                   md_shop as s
+             where  o.shop_id=s.shop_id {$_SESSION['search_tj']} {$_SESSION['where']} group by o.id) as a";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data[0]['c'];
+    }
+    // 查询 需求列表 根据不同的状态
+    function get_search($limit,$pageNum){
+        $sql="SELECT
+	o.id,
+	o.user_id,
+	o.customer_name,
+	o.customer_tel,
+	o.a_name,
+	u.username,
+	o.shop_id,
+	o.states,
+	o.deliver_type,
+	o.b_name,
+	o.ctime,
+	o.addtime,
+	o.from_id,
+	s.shop_name,
+    o.is_chakan,
+	o.sign_id,
+	o.xiao_id
+FROM
+	md_order AS o
+	LEFT JOIN md_shop AS s on o.shop_id = s.shop_id
+    LEFT JOIN user as u    on o.user_id = u.userid
+    LEFT JOIN md_need AS n on n.order_id = o.id
+    LEFT JOIN ecs_goods AS g on g.goods_id = n.goods_id
+WHERE 1=1
+        {$_SESSION['search_tj']} {$_SESSION['where']}
+        group by o.id order by o.id desc limit $pageNum,$limit";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //修改为已查看状态
+    function is_chakan($id){
+        $sql = "update md_order set is_chakan=1 where id=$id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //根据名称获取会员信息
+    function get_one_user($username){
+        $sql="select u.userid,u.username  from user as u where u.username='{$username}'";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取有多少条信息
+    function get_order_num($user_id,$from_time,$to_from){
+        $sql="select o.id from md_order as o where o.user_id=$user_id and o.addtime between '{$from_time}' and '{$to_from}' order by o.addtime asc";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取会员信息
+    function get_user_mess($user_id){
+        $sql="select 	DISTINCT(u.userid),u.username,a.user_money  from md_order as o,user as u,user_account as a where o.user_id=a.userid and o.user_id=u.userid and o.user_id=$user_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取商品信息
+    function get_goods_mess($order_id){
+        $sql="select n.id,g.goods_id,g.goods_name,n.goods_num,n.goods_sn_id,n.wareid,n.goods_price,g.guige,g.company,g.product_unit,gi.market_price,gi.shop_price  from md_need as n,ecs_goods as g,ecs_goods_index as gi where n.goods_id=g.goods_id and n.goods_id=gi.goods_id and n.order_id=$order_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取促销价格
+    function get_promote_price($goods_id,$t){
+        $sql="select promote_price  from ecs_goods_index where goods_id=$goods_id and $t between promote_start_date and promote_end_date";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取配送信息
+    function get_order_mess($order_id){
+        $sql="select n.id,n.shop_id,n.user_id,s.shop_name,n.name,n.customer_name,n.customer_tel,n.tel,n.address,n.states,n.youbian,n.fee,
+                      n.total,n.fukuan,n.sign_id,n.total,n.message,n.kefu_message,n.xiao_id,n.addtime,n.from_id,n.home_tel,n.is_chakan,n.deliver_type,n.jiesuan,
+                      n.province,n.city,n.district
+              from md_order as n
+              LEFT JOIN md_shop AS s on n.shop_id = s.shop_id
+              where  n.id=$order_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data[0];
+    }
+    //获取会员等级
+    function get_user_rank($user_id){
+        $sql="select user_rank from user_account where userid=$user_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //根据会员等级 获取价格
+    function get_price($user_rank,$goods_id){
+        if(empty($user_rank)){
+            $user_rank = 100;
+        }
+        $sql="select user_price from ecs_member_price where user_rank=$user_rank and goods_id=$goods_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data[0]['user_price'];
+    }
+    //获取会员地址
+    function get_address($user_id){
+        $sql="select consignee,mobile,address,province,city,district from ecs_user_address where  user_id=$user_id";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取一条地区
+    function get_one_region($region_id){
+        $sql="SELECT region_name FROM ecs_region WHERE region_id='{$region_id}'";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取商品详细信息
+    function get_goods_detail($goods_id){
+        $sql="select guige from ecs_goods where  goods_id='$goods_id'";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //修改状态
+    function update_order_state($order_id,$states){
+        $sql = "update md_order set states=$states where id=$order_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //转预存款状态的更新为已沟通
+    function check_zhuan_money($order_id,$states,$fukuan){
+        $sql = "update md_order set states=$states,fukuan=$fukuan where id=$order_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //更新为已成交 写入海典号
+    function confirm_order($order_id,$states,$hai_id,$time){
+        $sql = "update md_order set
+                                 sign_id= '{$hai_id}',
+                                 states=$states,
+                                 ftime= '{$time}'
+                          where id=$order_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //更新为已处理 写入派送号
+    function chuli_order($order_id,$states,$xiaohao_id){
+        $sql = "update md_order set
+                                 xiao_id= '{$xiaohao_id}',
+                                 states=$states
+                          where id=$order_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //更新md_need表的商品数量
+    function update_md_need($id,$num){
+        $sql = "update md_need set goods_num=$num where id=$id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //更新md_order表
+    function update_md_order($arr){
+        $sql = "update md_order set    shop_id='{$arr['shop_id']}',
+                                        name= '{$arr['name']}',
+                                        tel= '{$arr['tel']}',
+                                        home_tel= '{$arr['home_tel']}',
+                                        district= '{$arr['district']}',
+                                        address= '{$arr['address']}',
+                                        youbian= '{$arr['youbian']}',
+                                        fee= '{$arr['fee']}',
+                                        total= '{$arr['total']}',
+                                        fukuan= '{$arr['fukuan']}',
+                                        deliver_type= '{$arr['deliver_type']}',
+                                        states= '{$arr['states']}',
+                                        b_name= '{$arr['b_name']}',
+                                        ctime= '{$arr['ctime']}',
+                                        kefu_message='{$arr['kefu_message']}'
+                                        where id= '{$arr['id']}'";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //写入需求日志
+    function md_order_log($name,$states,$order_id,$time,$message,$shop_id){
+        $sql="INSERT INTO md_order_log (name,states,order_id,time,message,shop_id)
+                             VALUES ('{$name}','{$states}','{$order_id}','{$time}','{$message}','{$shop_id}')";
+        $this->db->query($sql);
+    }
+    //获取操作日志
+    function get_order_log($order_id){
+        $sql="select l.name,
+                    l.states,
+                    l.time,
+                    l.shop_id,
+                    s.shop_name,
+                    l.message
+           from md_order_log as l
+           LEFT JOIN md_shop as s on l.shop_id=s.shop_id and l.shop_id!=0
+        where  order_id=$order_id
+             order by l.time asc";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //更新会员的预存款
+    function update_acccount($user_id,$money){
+        $sql = "update user_account set user_money=user_money-$money where userid=$user_id";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //扣款的支付日志
+    function pay_user_money($arr){
+//        $sql = "insert into
+//        ecs_account_log (recharge_id,
+//                             user_id,
+//                          user_money,
+//                        frozen_money,
+//                        rank_points,
+//                          pay_points,
+//                        change_time,
+//                        change_desc,
+//                        change_type,
+//                            shop_id,
+//                         admin_name,
+//                           order_id
+//                        )values (
+//                        '{$arr['recharge_id']}',
+//                        '{$arr['user_id']}',
+//                        '-{$arr['user_money']}',
+//                        '{$arr['frozen_money']}',
+//                        '{$arr['rank_points']}',
+//                        '{$arr['pay_points']}',
+//                        '{$arr['change_time']}',
+//                        '{$arr['change_desc']}',
+//                        '{$arr['change_type']}',
+//                        '{$arr['shop_id']}',
+//                        '{$arr['admin_name']}',
+//                        '{$arr['order_id']}'
+//                        ),(
+//                        '{$arr['recharge_id']}',
+//                        '{$arr['user_id']}',
+//                        0,
+//                        '{$arr['frozen_money']}',
+//                        '{$arr['user_money']}',
+//                        '{$arr['user_money']}',
+//                        '{$arr['change_time']}',
+//                        '{$arr['change_desc']}',
+//                        '{$arr['change_type']}',
+//                        '{$arr['shop_id']}',
+//                        '{$arr['admin_name']}',
+//                        '{$arr['order_id']}'
+//                        )";
+        $sql = "insert into
+        ecs_account_log (recharge_id,
+                             user_id,
+                          user_money,
+                        frozen_money,
+                        rank_points,
+                          pay_points,
+                        change_time,
+                        change_desc,
+                        change_type,
+                            shop_id,
+                         admin_name,
+                           order_id
+                        )values (
+                        '{$arr['recharge_id']}',
+                        '{$arr['user_id']}',
+                        '-{$arr['user_money']}',
+                        '{$arr['frozen_money']}',
+                        '{$arr['rank_points']}',
+                        '{$arr['pay_points']}',
+                        '{$arr['change_time']}',
+                        '{$arr['change_desc']}',
+                        '{$arr['change_type']}',
+                        '{$arr['shop_id']}',
+                        '{$arr['admin_name']}',
+                        '{$arr['order_id']}'
+                        )";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //退款的支付日志
+    function back_user_money($arr){
+//        $sql = "insert into
+//        ecs_account_log (recharge_id,
+//                             user_id,
+//                          user_money,
+//                        frozen_money,
+//                        rank_points,
+//                          pay_points,
+//                        change_time,
+//                        change_desc,
+//                        change_type,
+//                            shop_id,
+//                         admin_name,
+//                           order_id
+//                        )values (
+//                        '{$arr['recharge_id']}',
+//                        '{$arr['user_id']}',
+//                        '+{$arr['user_money']}',
+//                        '{$arr['frozen_money']}',
+//                        '{$arr['rank_points']}',
+//                        '{$arr['pay_points']}',
+//                        '{$arr['change_time']}',
+//                        '{$arr['change_desc']}',
+//                        '{$arr['change_type']}',
+//                        '{$arr['shop_id']}',
+//                        '{$arr['admin_name']}',
+//                        '{$arr['order_id']}'
+//                        ),(
+//                        '{$arr['recharge_id']}',
+//                        '{$arr['user_id']}',
+//                        0,
+//                        '{$arr['frozen_money']}',
+//                        '-{$arr['user_money']}',
+//                        '-{$arr['user_money']}',
+//                        '{$arr['change_time']}',
+//                        '{$arr['change_desc']}',
+//                        '{$arr['change_type']}',
+//                        '{$arr['shop_id']}',
+//                        '{$arr['admin_name']}',
+//                        '{$arr['order_id']}'
+//                        )";
+        $sql = "insert into
+        ecs_account_log (recharge_id,
+                             user_id,
+                          user_money,
+                        frozen_money,
+                        rank_points,
+                          pay_points,
+                        change_time,
+                        change_desc,
+                        change_type,
+                            shop_id,
+                         admin_name,
+                           order_id
+                        )values (
+                        '{$arr['recharge_id']}',
+                        '{$arr['user_id']}',
+                        '+{$arr['user_money']}',
+                        '{$arr['frozen_money']}',
+                        '{$arr['rank_points']}',
+                        '{$arr['pay_points']}',
+                        '{$arr['change_time']}',
+                        '{$arr['change_desc']}',
+                        '{$arr['change_type']}',
+                        '{$arr['shop_id']}',
+                        '{$arr['admin_name']}',
+                        '{$arr['order_id']}'
+                        )";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+    //导出
+    function export(){
+        $sql="SELECT
+	o.id,
+	o.user_id,
+	o.customer_name,
+	o.customer_tel,
+	o.a_name,
+	u.username,
+	o.shop_id,
+	o.b_name,
+	o.ctime,
+	o.addtime,
+	o.from_id,
+	s.shop_name,
+	o.is_chakan,
+	o.sign_id,
+	o.xiao_id,
+	o.address,
+	o.fee,
+	o.total,
+	o.ftime,
+	o.fukuan,
+	o.states
+FROM
+	md_order AS o
+	LEFT JOIN md_shop AS s on o.shop_id = s.shop_id
+    LEFT JOIN user as u    on o.user_id = u.userid
+    LEFT JOIN md_need AS n on n.order_id = o.id
+    LEFT JOIN ecs_goods AS g on g.goods_id = n.goods_id
+WHERE 1=1
+{$_SESSION['search_tj']}
+                order by o.id desc";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //获取操作员
+    function get_ren(){
+        $sql="select u_name from md_user where u_type!=0 order by u_id desc";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //搜索商品
+    function search_goods_like($keyword,$sf=0){
+        $keyword_like = $keyword;
+        if($sf==0){$dealerId = " and gi.dealer_id = 0 ";}else{$dealerId = " and gi.dealer_id > 0 and gi.audit_pass>0 ";}
+
+        $sql=<<<EOF
+SELECT g.goods_id, g.goods_name, g.goods_sn, g.guige, g.product_unit, g.company FROM ecs_goods AS g
+LEFT JOIN ecs_goods_index AS gi ON gi.goods_id=g.goods_id
+WHERE gi.is_on_sale = 1 AND gi.shop_id=42000
+AND (g.goods_id LIKE '%$keyword_like%'
+OR g.goods_name LIKE '%$keyword_like%'
+OR g.common_name LIKE '%$keyword_like%'
+OR g.pingyin LIKE '%$keyword_like%'
+OR g.spell_code LIKE '%$keyword_like%'
+OR g.goods_sn LIKE '%$keyword_like%')
+AND g.prescription_type =0
+and g.is_special!=1
+EOF;
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //删除商品
+    function del_goods($id){
+        $sql="delete from md_need where id=$id";
+        $this->db->query($sql);
+    }
+    //添加商品
+    function insert_goods_need($goods_id,$order_id,$wareid,$goods_sn_id,$goods_price){
+        $sql="insert into md_need(goods_id,goods_num,order_id,wareid,goods_sn_id,goods_price)
+              values('{$goods_id}',1,'{$order_id}','{$wareid}','{$goods_sn_id}','{$goods_price}')";
+        $this->db->query($sql);
+    }
+    //获取城市
+    function getregion($id){
+        $sql="SELECT region_id,region_name FROM ecs_region WHERE parent_id='{$id}'";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //添加地址
+    function save_address($arr){
+        $sql="INSERT INTO ecs_user_address (user_id,consignee,country,province,city,district,address,zipcode,mobile)
+                             VALUES ('{$arr['user_id']}','{$arr['name']}',1602,'{$arr['pro']}','{$arr['city']}','{$arr['dis']}','{$arr['address']}','{$arr['youbian']}','{$arr['tel']}')";
+        $this->db->query($sql);
+        return $this->db->insert_id();
+    }
+    //
+    function get_name_from_md_order_log($order_id,$states){
+        $sql="SELECT name FROM md_order_log WHERE order_id='{$order_id}' and states='{$states}'";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+    //导出商品明细
+    function goods_detail($where){
+        $sql="SELECT
+     o.user_id,
+     o.id,
+     u.username,
+     o.customer_name,
+     o.customer_tel,
+     o.name,
+     o.tel,
+     g.goods_name,
+     g.goods_id,
+     n.goods_sn_id,
+     n.wareid,
+     n.goods_num,
+     o.total,
+     o.fukuan,
+     o.states,
+     o.sign_id,
+     o.xiao_id,
+     o.addtime,
+     o.ctime,
+     o.ftime,
+     o.a_name,
+     o.b_name,
+     s.shop_name,
+     o.from_id
+FROM
+     md_order AS o
+LEFT JOIN md_need AS n ON o.id = n.order_id
+LEFT JOIN md_shop AS s ON o.shop_id = s.shop_id
+LEFT JOIN ecs_goods AS g ON n.goods_id = g.goods_id
+LEFT JOIN USER AS u ON u.userid = o.user_id
+where {$where}
+order by o.id asc";
+        $query = $this->db->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+	
+	function get_dealer_shipping($dealer_id){
+		$sql  = "SELECT
+						r1.region_name AS province_name,
+						r2.region_name AS city_name,
+						d.address
+					FROM
+						dealer d,
+						ecs_region r1,
+						ecs_region r2
+					WHERE
+						d.province = r1.region_id
+					AND d.city = r2.region_id
+					AND d.dealer_id = '{$dealer_id}'
+					LIMIT 1";
+        $query = $this->db->query($sql);
+        $data = $query->row_array();
+        return $data;
+
+	}
+
+	function get_recive_time($dealer_id,$shipping_id)
+    {
+        $sql = "SELECT
+					dealer_id,
+					province_id,
+					city_id,
+					district_id,
+					shipping_receive,
+					f.shipping_fee,
+					shipping_next_fee
+				FROM
+					yf_dealer_shipping_time t,
+					yf_dealer_shipping_fee f
+				WHERE
+					t.dealer_id = $dealer_id
+				AND t.shipping_id = $shipping_id
+				AND t.id = f.area_id" ;
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+}
+?>

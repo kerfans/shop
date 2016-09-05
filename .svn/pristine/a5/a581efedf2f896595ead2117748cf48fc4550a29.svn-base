@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" type="text/css" rel="stylesheet" />
+    <link href="<?php echo SITE; ?>public/css/style.css" type="text/css" rel="stylesheet" />
+    <title>right</title>
+<body>
+<!--right厂家管理 查询系统 付款查询 start-->
+<div class="right" id="right">
+    <div class="right-main">
+    <div class="title"><span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;">京卫药业门店管理系统</span><span style="font-size:14px; color:#3c8cc7; font-weight:bold;">-欢迎界面</span></div>
+    <div class="infor">
+    <table bgcolor="#cccccc" width="100%" border="0" cellspacing="1" cellpadding="0">
+  <tr>
+    <td class="til" style="text-align:left; text-indent:10px;" bgcolor="#FFFFFF">个人中心</td>
+    </tr>
+  <tr>
+    <td class="list" style="text-align:left; text-indent:10px;" bgcolor="#FFFFFF">欢迎您：<?php echo $_SESSION['username'];?></td>
+    </tr>
+  <tr>
+    <td class="list" style="text-align:left; text-indent:10px;" bgcolor="#FFFFFF">身&nbsp;&nbsp;份：<?php echo $_SESSION['shenfen'];?></td>
+    </tr>
+  <tr>
+    <td class="list" style="text-align:left; text-indent:10px;" bgcolor="#FFFFFF">如果您是第一次登陆系统，请您及时修改您的密码<a href="<?php echo $_SESSION['password_url']; ?>" target="mainFrame">【修改密码】</a></td>
+    </tr>
+</table>    
+  </div>
+</div>
+<!--right厂家管理 查询系统 付款查询 end-->
+</body>
+</html>

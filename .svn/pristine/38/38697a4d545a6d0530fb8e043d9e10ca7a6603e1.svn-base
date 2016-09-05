@@ -1,0 +1,44 @@
+<?php
+//会员模块类
+class Usermodel extends CI_Model {
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
+    //获取一条会员信息
+    function get_one_user($name,$password){
+        $sql="select  *  from md_user  where u_name='{$name}' and u_password='{$password}'";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return  $result;
+    }
+    //获取一条会员信息
+    function get_one_u($u_id){
+        $sql="select  *  from md_user  where u_id=$u_id";
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return  $result;
+    }
+
+
+
+    //通过Id获取指定经销商信息
+    function get_jxs_by_id($u_id){
+        $sql = "select * from md_user where u_id={$u_id}";//echo $sql;
+        $query = $this->db->query($sql);
+        $result = $query->result_array();
+        return $result;
+    }
+
+    //修改密码
+    function  update_password($u_password)
+    {
+        $sql = "update md_user set u_password= '{$u_password}'  where u_id ={$_SESSION['u_id']}"; //echo $sql;
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
+
+}
+?>

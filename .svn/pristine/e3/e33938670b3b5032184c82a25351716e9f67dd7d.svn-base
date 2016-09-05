@@ -1,0 +1,122 @@
+@charset "utf-8";
+/* CSS Document
+   制作：张
+   时间：2013.05 */
+
+/* login css */
+html{ background:#e4f5ff; overflow:auto; overflow-y:hidden;}
+.warp{width:100%; height:626px; margin:0 auto;}
+.warp-login{width:100%; height:100%; background:url(../images/login-bg.jpg) no-repeat center; position:relative;}
+.warp-login .log{width:280px; height:130px; position:absolute; top:25%; left:25%;}
+.warp1{width:100%; margin:0 auto;}
+.fkcx-main{width:100%;}
+.top{ height:83px;}
+.log .tex1{width:180px; height:18px; line-height:18px; border-top:2px solid #ccc; border-left:0; border-right:2px solid #fff; border-bottom:2px solid #fff; background:#d6e7fb;}
+.log .tex2{width:180px; height:18px; line-height:18px; border-top:2px solid #ccc; border-left:0; border-right:2px solid #fff; border-bottom:2px solid #fff; background:#d6e7fb;}
+.log .btn1{width:60px; height:26px; border:0; background:url(../images/login.jpg) no-repeat;}
+.log .btn2{width:60px; height:26px; border:0; background:url(../images/reset.jpg) no-repeat; margin-left:15px;}
+
+/* 厂家管理 查询系统 付款查询 css */
+.top{width:100%; height:83px; background:url(../images/top-bg.jpg) repeat; position:relative; }
+.top .login{font-size:12px; color:#FFF; width:auto; position:absolute; bottom:45px; right:40px;}
+.top a{color:#FFF; text-decoration:none;}
+.top  a:hover{color:#FFF; text-decoration:underline;}
+.top .mima { bottom: 20px; color: #FFFFFF; font-size: 12px;position: absolute;right: 35px; width: auto;}
+.left{width:180px; float:left; height:100%; background:url(../images/left1-bg.jpg) bottom;}
+.left h2{width:180px; height:43px; line-height:43px; background:url(../images/left-bg.jpg) no-repeat; font-size:14px; text-align:center; font-weight:bold; }
+.left h2 a{color:#fff; text-decoration:none;}
+.left ul li{width:180px; font-size:14px; height:33px; line-height:33px; background:url(../images/li-bg.jpg); text-align:center; list-style:none; overflow:hidden;}
+.left ul li a{color:#005693; text-decoration:none; width:180px; height:33px; display:block;}
+.center{width:7px; height:100%; float:left; background:url(../images/yc.jpg);}
+.right{position:relative; height:100%; width:auto; background:#e4f5ff; overflow:auto;}
+.right .ss{position:absolute; top:50%; left:0;}
+.right .right-main{ height:100%; margin:5px;}
+.right .right-main .title{height:34px; border:1px solid #c6e6ff; line-height:34px; background:#FFF; position:relative;}
+.right .right-main .infor{background:#fff; border:1px solid #c6e6ff; margin:5px 0; padding:5px;}
+.right-main .infor .til{width:100%; height:39px; line-height:39px; font-size:14px; color:#565656; font-weight:bold; background:url(../images/t-bg.jpg) repeat; text-align:center;}
+.right-main .infor .list{width:100%; height:31px; line-height:31px; text-align:center; font-size:12px;}
+.right-main .infor .list a,.right-main .infor .list a:hover{color:#237fdd; text-decoration:none;}
+.right-main .infor .add{text-align:center; padding-right:40px; margin-top:10px; }
+.right-main .infor .add input{ background-image:url(images/bc.jpg); color:#FFF;}
+.right-main .infor .add1{text-align:left; padding-left:0; margin-bottom:10px;}
+.right-main .infor .list1{width:100%; height:40px; line-height:40px; text-align:center; font-size:12px;}
+.right-main .infor .list1 .tex,.right-main .infor .list2 .tex{width:240px; height:20px; line-height:20px; font-size:12px;}
+.right-main .infor .list2{width:100%; height:30px; line-height:30px; text-align:center; font-size:12px;}
+.add2{padding-left:5px;}
+.red{color:red;}
+.jibie,.jibie3{padding:5px;}
+.jibie1{color:#666;}
+.jibie2{color:#39C;}
+.jibie1 a{color:#666; text-decoration:underline;}
+.jibie1 a:hover{color:#666; text-decoration:underline;}
+.jibie2 a{color:#39C; text-decoration:none;}
+.jibie2 a:hover{color:#39C; text-decoration:underline;}
+.jibie ul li,.jibie3 ul li{margin:5px 15px; font-size:14px; float:left; width:150px;}
+
+
+
+.warp-login .log{width:637px; height:416px; background:url(../images/login-bg1.jpg) no-repeat; margin:auto; position:absolute; top:20%; left:27%;}
+.ycxs{font-size:14px; display:block; height:45px; width:7px; background:#81cbfc; position:absolute; top:50%; left:0; line-height:45px;}
+.ycxs a,.ycxs a:hover{color:#fff; text-decoration:none; display:block; height:45px; width:7px;}
+
+/* 翻页 */
+.pagination{
+	height:25px;
+line-height:25px;
+border:1px solid #c6e6ff;
+padding: 5px;
+background:#FFF;
+}
+.pagination strong{
+    border:1px solid #666;
+    padding: 0 5px;
+    background:#ccc;
+}
+.pagination a{
+    text-decoration: none;
+}
+.pagination ul{
+margin: 0;
+padding: 0;
+text-align: left; /*Set to "right" to right align pagination interface*/
+font-size: 12px;
+}
+
+.pagination li{
+list-style-type: none;
+display: inline;
+padding-bottom: 1px;
+}
+
+.pagination a, .pagination a:visited{
+padding: 0 5px;
+border: 1px solid #9aafe5;
+text-decoration: none;
+color: #2e6ab1;
+}
+
+.pagination a:hover, .pagination a:active{
+border: 1px solid #2b66a5;
+color: #000;
+background-color: lightyellow;
+}
+
+.pagination li.currentpage{
+font-weight: bold;
+padding: 0 5px;
+border: 1px solid navy;
+background-color: #2e6ab1;
+color: #FFF;
+}
+
+.pagination li.disablepage{
+padding: 0 5px;
+border: 1px solid #929292;
+color: #929292;
+}
+
+.pagination li.nextpage{
+font-weight: bold;
+}
+
+

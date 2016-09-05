@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/jquery.js"></script>
+    <title>需求管理-查询</title>
+<style>
+    a{text-decoration: none;}
+    button { border:1px solid #369;
+     font-size:12px; padding:0 8px; *padding:0 10px; text-align:center; overflow:visible; height:21px; line-height:18px; padding-bottom:2px; _padding-top:4px; _line-height:10px;}
+</style>
+</head>
+<body>
+<!--right厂家管理 查询系统 付款查询 start-->
+<div class="right" id="right">
+    <div class="right-main">
+        <div class="title"><span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;">需求管理</span><span style="font-size:14px; color:#3c8cc7; font-weight:bold;">-完善信息</span></div>
+        <div class="infor">
+            <form  method="post"   action="<?php echo SITE; ?>shop/search_order" style="margin-top:0px;+margin-top:-35px;_margin-top:-35px;"  name="form" enctype="multipart/form-data">
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%">编号</td>
+                        <td colspan="7" bgcolor="#FFFFFF" align="left" style="padding-left:20px;">
+                            <input type="text" name="id"/>
+                        </td>
+                    </tr>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%">会员名称</td>
+                        <td colspan="7" bgcolor="#FFFFFF" align="left" style="padding-left:20px;">
+                            <input type="text" name="username"/>
+                        </td>
+                    </tr>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%">客户姓名</td>
+                        <td colspan="7" bgcolor="#FFFFFF" align="left" style="padding-left:20px;">
+                            <input type="text" name="customer_name"/>
+                        </td>
+                    </tr>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%">客户电话</td>
+                        <td colspan="7" bgcolor="#FFFFFF" align="left" style="padding-left:20px;">
+                            <input type="text" name="customer_tel"/>
+                        </td>
+                    </tr>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%">收货人姓名</td>
+                        <td colspan="7" bgcolor="#FFFFFF" align="left" style="padding-left:20px;">
+                            <input type="text" name="name"/>
+                        </td>
+                    </tr>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%" >收货人电话</td>
+                        <td colspan="7" bgcolor="#FFFFFF" align="left" style="padding-left:20px;">
+                            <input type="text" name="tel"/>
+                        </td>
+                    </tr>
+                    <!--
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%" >负责门店</td>
+                        <td colspan="7" bgcolor="#FFFFFF" align="left" style="padding-left:20px;">
+                            <select  id="_id" name="shop_id">
+                                 <?php echo $mendian."niaho";?>
+                            </select>
+                        </td>
+                    </tr>
+                    -->
+                </table>
+                <div class="add"><input style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"   onclick="return check();" type="submit" value="确定" /></div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!--right厂家管理 查询系统 付款查询 end-->
+
+</body>
+</html>

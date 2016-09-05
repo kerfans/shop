@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/jquery.js"></script>
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/date/WdatePicker.js"></script>
+    <title>需求管理-查询</title>
+<style>
+    a{text-decoration: none;}
+</style>
+</head>
+<body>
+<div class="right" id="right">
+    <div class="right-main">
+        <div class="title">
+            <span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;float:left;">需求管理</span><span style="float:left;;font-size:14px; color:#3c8cc7; font-weight:bold;margin-right:30px;">-查询</span>
+        </div>
+        <div class="infor">
+            <form  method="post"   action="<?php echo SITE; ?>mendian/goods_detail" style="margin-top:0px;+margin-top:-35px;_margin-top:-35px;"  name="form" enctype="multipart/form-data">
+                <input type="text" name="goods_detail[]" onClick="WdatePicker()" placeholder="请输入开始日期"/>-<input type="text" name="goods_detail[]" onClick="WdatePicker()" placeholder="请输入结束日期"/>
+                <input style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"   onclick="return check();" type="submit" value="导出明细" />
+            </form>
+        </div>
+    </div>
+
+</div>
+<!--right厂家管理 查询系统 付款查询 end-->
+
+</body>
+</html>

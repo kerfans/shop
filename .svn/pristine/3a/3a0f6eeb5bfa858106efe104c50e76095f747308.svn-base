@@ -1,0 +1,74 @@
+<?php
+/*
+* product_stockmodel 库存查询接口模型
+* 2012-08-02
+*  
+**/
+class product_stockmodel extends CI_Model 
+{
+	var $hydee='';
+    var $db='';
+	function __construct()
+    {
+        parent::__construct();
+		$this->hydee=$this->load->database('hydee',true);
+        $this->db = $this->load->database('other',true);
+
+    }
+    function  getWareId_detail($goods_id)
+    {
+            $sql = "select * from hydee_yaofang_goods_id where goods_id=$goods_id";
+            $query = $this->hydee->query($sql);
+            $data = $query->result_array();
+            return $data;
+    }
+
+    function  getWareId($goods_id=0)
+    {
+        if($goods_id > 0)
+        {
+            $sql = "select wareid from hydee_yaofang_goods_id where goods_id=$goods_id";
+            $query = $this->db->query($sql);
+            $data = $query->result_array();
+            return isset($data[0]['wareid']) ? $data[0]['wareid'] : 0;
+        }
+    }
+
+	function Getlist($pageSize,$PageNo,$where)
+	{
+		$sql = "select orgname,org_id,shop_id,stallname,wareid,goods_id,goods_sn,abc,warename,warespec,wareunit,producer,makeno,invalidate,wareqty
+ from
+(select top 999999999 max(e.orgname) as orgname,MAX(principal) as org_id,max(e.bank) as shop_id,max(f.stallname) as stallname,a.wareid,max(insuranceno) as goods_id,
+    max(extno) as goods_sn,max(c.abc) as abc,max(warename) as warename,max(warespec) as warespec,
+    max(wareunit) as wareunit,max(producer) as producer,makeno,max(invalidate) as invalidate,sum(wareqty) as wareqty,
+    row_number() over(order by getdate()) as rn
+from u_store_c a,u_store_i b,u_ware_q c,u_ware_ext d,c_org_busi e,c_stall f
+where a.wareid=b.wareid and a.batchno=b.batchno and a.idno=b.idno and a.stallno = f.stallno
+	and (f.stalltype like '1%' or f.stalltype='23' or f.stalltype='25')
+    and b.wareid=c.wareid and c.wareid=d.wareid and a.busno = e.busno and wareqty>0 and $where group by b.makeno,e.busno,a.wareid order by shop_id desc ) tb where rn >($PageNo-1)*$pageSize and rn <=$PageNo*$pageSize ";
+
+//		echo $sql;
+        $query = $this->hydee->query($sql);
+       $data = $query->result_array();
+       return $data;
+	}
+
+    function GetCount_all($where)
+    {
+        $sql = "select count(*) c from
+(select max(e.orgname) as orgname,MAX(principal) as org_id,max(e.bank) as shop_id,max(f.stallname) as stallname,a.wareid,max(insuranceno) as goods_id,
+    max(extno) as goods_sn,max(c.abc) as abc,max(warename) as warename,max(warespec) as warespec,
+    max(wareunit) as wareunit,max(producer) as producer,makeno,max(invalidate) as invalidate,sum(wareqty) as wareqty,
+    row_number() over(order by getdate()) as rn
+from u_store_c a,u_store_i b,u_ware_q c,u_ware_ext d,c_org_busi e,c_stall f
+where a.wareid=b.wareid and a.batchno=b.batchno and a.idno=b.idno and a.stallno = f.stallno
+	and (f.stalltype like '1%' or f.stalltype='23' or f.stalltype='25')
+    and b.wareid=c.wareid and c.wareid=d.wareid and a.busno = e.busno and wareqty>0 and $where group by b.makeno,e.busno,a.wareid ) tb ";
+
+        $query = $this->hydee->query($sql);
+        $data = $query->result_array();
+        return $data;
+    }
+
+
+}

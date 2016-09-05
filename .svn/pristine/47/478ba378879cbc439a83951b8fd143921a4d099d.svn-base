@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <script>
+        var show=new Array();
+        var shows;
+        window.onload=function(){
+            var oTab0=document.getElementById('tab0');
+            var oUl0=document.getElementById('ul0');
+            oUl0.style.display="block";
+            oTab0.onclick=function(){
+                if(!show[0]){
+                    oUl0.style.display="block";
+                }else{
+                    oUl0.style.display="none";
+                }
+                show[0] = !show[0];
+                var oLi=oUl0.getElementsByTagName('li');
+
+                for(var i=0;i<oLi.length;i++){
+                    oLi[i].onclick=function(){
+                        for(var j=0;j<oLi.length;j++){
+                            oLi[j].style.background='';
+                        }
+                        this.style.background='url(<?php echo SITE; ?>public/images/a-bg.jpg)';
+                    }
+                }
+            }
+            var oTab1=document.getElementById('tab1');
+            var oUl1=document.getElementById('ul1');
+            oUl1.style.display="none";
+            oTab1.onclick=function(){
+                if(!show[1]){
+                    oUl1.style.display="block";
+                }else{
+                    oUl1.style.display="none";
+                }
+                show[1] = !show[1];
+            }
+            var oYc=document.getElementById('yc');
+            var oLeft=document.getElementById('left');
+            var oRight=document.getElementById('right');
+            oYc.onclick=function(){
+                if(!shows){
+                    oLeft.style.display="none";
+                    oRight.style.marginLeft=0;
+                }else{
+                    oLeft.style.display="block";
+                    oRight.style.marginLeft=235+'px';
+                }
+                shows = !shows;
+            }
+        }
+    </script>
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<!--left start-->
+<div class="left" id="left">
+    <h2 id="tab0"><a href="#">需求管理</a></h2>
+    <ul id="ul0">
+        <!--
+        <li><a href="<?php echo SITE; ?>shop/reg_user" target="mainFrame">注册会员</a></li>
+        <li><a href="<?php echo SITE; ?>shop/add_need" target="mainFrame">添加需求</a></li>
+        <li><a href="<?php echo SITE; ?>shop/display" target="mainFrame">未沟通需求</a></li>
+        <li><a href="<?php echo SITE; ?>shop/display_chuli" target="mainFrame">已沟通需求</a></li>
+        <li><a href="<?php echo SITE; ?>shop/display_fahuo" target="mainFrame">已标记需求</a></li>
+        <li><a href="<?php echo SITE; ?>shop/display_chengjiao" target="mainFrame">已确认需求</a></li>
+        <li><a href="<?php echo SITE; ?>shop/display_del" target="mainFrame">回收站</a></li>
+        <li><a href="<?php echo SITE; ?>shop/search" target="mainFrame">查询</a></li>
+        <br/>
+        -->
+        <li><a href="<?php echo SITE; ?>mendian/reg_user" target="mainFrame">注册新会员</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/add_need" target="mainFrame">添加新需求</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/0" target="mainFrame">未沟通需求</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/1" target="mainFrame">已沟通需求</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/2" target="mainFrame">已确认需求</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/7" target="mainFrame">已处理需求</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/3" target="mainFrame">已完成需求</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/4" target="mainFrame">已作废需求</a></li>
+        <?php $array=array('jw_3512','jw_1120','jw_1120','jw_3853','jw_4175','jw_5182','jw_3225','技术部测试');
+        if(in_array($_SESSION['username'],$array)){?>
+        <li><a href="<?php echo SITE; ?>mendian/search_show_detail" target="mainFrame">导出明细</a></li>
+        <?php }?>
+        <li><a href="<?php echo SITE; ?>mendian/search_show" target="mainFrame">查询</a></li>
+		<li><a href="<?php echo SITE; ?>mendian/show_dealer" target="mainFrame">配送费查询</a></li>
+        <li>-------------------</li>
+        <li><a href="<?php echo SITE; ?>mendian/display/9" target="mainFrame">2小时违约订单</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/11" target="mainFrame">经销商缺货退回</a></li>
+        <li><a href="<?php echo SITE; ?>mendian/display/10" target="mainFrame">已取消的违约订单</a></li>
+        <!--
+        <li><a href="<?php echo SITE; ?>shop/display_chengjiao" target="mainFrame">已完成需求</a></li>
+        -->
+    </ul>
+    <!--
+    <h2><a href="<?php echo SITE; ?>finance/cwgl_wfk"  target="mainFrame">财务管理</a></h2>
+    <h2><a href="<?php echo SITE; ?>user/agency_manage" target="mainFrame">经销商管理</a></h2>
+    <h2><a href="<?php echo SITE; ?>hospital/hospital_manage" target="mainFrame">医院管理</a></h2>
+    <h2><a href="<?php echo SITE; ?>patient/patient_manage" target="mainFrame">患者信息</a></h2>
+    -->
+</div>
+<!--left end-->
+</body>
+</html>

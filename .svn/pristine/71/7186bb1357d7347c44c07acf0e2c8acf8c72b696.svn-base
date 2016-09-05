@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/jquery.js"></script>
+    <title>需求管理-完善</title>
+    <script>
+         function check(){
+                  var form=document.form;
+                    if(form.name.value==""){
+                        alert("收货人不能为空");
+                        form.name.focus();
+                        return false;
+                    }
+                    if($("#tel").val()==""){
+                        alert("收货人电话不能为空");
+                        return false;
+                    }
+                     if($("#addr").val()==""){
+                         alert("收货人地址不能为空");
+                         return false;
+                     }
+                 $("#disabled").html("正在处理中...");
+                 form.submit();
+               }
+      //调配
+         function shop_mendian(){
+             var pro_id=$("#pro_id").val();
+             $.post('<?php echo SITE; ?>shop/get_mendian/'+pro_id, function(data){ $("#shop_id").html(data);});
+         }
+         //
+         function moban_id(){
+             var moban_id=$("#moban_id").val();
+             $("#caozuo_id").val(moban_id);
+         }
+         //状态名称
+         function states_name(states){
+             var states_name;
+             if(states==0){
+                 states_name='未沟通';
+             }else if(states==1){
+                 states_name='已沟通';
+             }else if(states==2){
+                 states_name='已确认';
+             }else if(states==7){
+                 states_name='已处理';
+             }else if(states==3){
+                 states_name='已完成';
+             }else if(states==4){
+                 states_name='已作废';
+             }else if(states==5){
+                 states_name='转预存款';
+             }else if(states==6){
+                 states_name='无法联系';
+             }else if(states==9){
+                 states_name='2小时违约需求';
+             }else if(states==10){
+                 states_name='已取消的违约需求';
+             }else if(states==11){
+                 states_name='经销商缺货退回';
+             }else if(states==12){
+                 states_name='顾客拒收';
+             }
+             return states_name;
+         }
+         //状态
+         var order_id=<?php echo $order['id']; ?>;
+         function states(i){
+             $.post('<?php echo SITE; ?>mendian/get_curr_states/'+order_id, function(states){
+                 var jiu_states=$("#jiu_states").val();
+                 if(jiu_states!=states){
+                     var jiu_name=states_name(jiu_states);
+                     var new_name=states_name(states);
+                     var string_name="警告：该订单状态已经由'"+jiu_name+"'变为'"+new_name+"',是否继续操作？？？";
+                     if(confirm(string_name)){
+                         next_caozuo(i);
+                     }else{
+                         window.location.reload();
+                     }
+                 }else{
+                     next_caozuo(i);
+                 }
+             });
+         }
+         //具体的操作
+         function next_caozuo(i){
+             var caozuo=$("#caozuo_id").val();
+             if(i==0){
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 window.location.href="<?php echo SITE; ?>mendian/huanyuan_states/"+order_id+"/"+$("#user_id").val()+"/0/"+encodeURI(caozuo);
+             }
+             if(i==1){
+                 var fukuan=$("input[name='fukuan']:checked").val();
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                 window.location.href="<?php echo SITE; ?>mendian/check_zhuan_money/"+order_id+"/1/"+fukuan+"/"+encodeURI(caozuo);
+             }
+             if(i==2){
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 window.location.href="<?php echo SITE; ?>mendian/update_states/"+order_id+"/2/"+encodeURI(caozuo);
+             }
+             if(i==3){
+                 var hai_id=$("#hai_id").val();
+                 if(hai_id==""){
+                     alert('请填写内部单号');
+                     return false;
+                 }
+//                 if(hai_id.length!=7){
+//                     alert('请填写七位内部单号');
+//                     return false;
+//                 }
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                 window.location.href="<?php echo SITE; ?>mendian/confirm_order/"+order_id+"/3/"+hai_id+"/"+encodeURI(caozuo);
+             }
+             if(i==4){
+                 if(caozuo==''){
+                     alert("请填写操作留言");
+                     return false;
+                 }
+                 if(confirm('您确定要作废么?')){
+                     $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                     $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                     window.location.href="<?php echo SITE; ?>mendian/del/"+order_id+"/4/"+encodeURI(caozuo);
+                 }
+             }
+             if(i==5){
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                 window.location.href="<?php echo SITE; ?>mendian/del/"+order_id+"/5/"+encodeURI(caozuo);
+             }
+             if(i==7){
+                 var xiao_id=$("#xiao_id").val();
+                 if(xiao_id==""){
+                     alert('请填写派送单号');
+                     return false;
+                 }
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                 window.location.href="<?php echo SITE; ?>mendian/chuli/"+order_id+"/7/"+xiao_id+"/"+encodeURI(caozuo);
+             }
+             if(i==8){//s
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                 window.location.href="<?php echo SITE; ?>mendian/update_states/"+order_id+"/8/"+encodeURI(caozuo);
+             }
+             if(i==110){//s
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                 window.location.href="<?php echo SITE; ?>mendian/update_states/"+order_id+"/1/"+encodeURI(caozuo);
+             }
+             if(i==111){//返回
+                 window.location.href="<?php echo $_SERVER['HTTP_REFERER'];?>";
+             }
+             if(i==10){//返回
+                 $("button").css({ "color": "red" }).attr({ "disabled": "disabled" }).html('禁用');
+                 $("#states"+i).css({ "color": "red" }).attr({ "disabled": "disabled" }).html('处理中...');
+                 window.location.href="<?php echo SITE; ?>mendian/fenpei_once/"+order_id+"/10/"+encodeURI(caozuo);
+             }
+         }
+    </script>
+<style>
+    a{text-decoration: none;}
+    button{ width:69px;
+            height:24px;
+            background:url(<?php echo SITE; ?>public/images/bc.jpg);
+            border:0;
+            color:#fff;
+           cursor:pointer;"
+    }
+</style>
+<body>
+<!--right厂家管理 查询系统 付款查询 start-->
+<div class="right" id="right">
+    <div class="right-main">
+        <div class="title"><span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;">需求管理</span><span style="font-size:14px; color:#3c8cc7; font-weight:bold;">-<?php echo $states_name;?></span></div>
+        <div class="infor">
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding-left:50px;font-size:14px;"><strong>咨询信息</strong>
+                            &nbsp; &nbsp; &nbsp; &nbsp;
+                            <span>该用户名24小时内的第<strong style="color:red;"><?php echo count($order_num);?></strong>条咨询信息,编号分别为：
+                                <?php foreach($order_num as $k=>$v){echo $v['id']." "; } ?>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF"><strong>编号：</strong></td>
+                        <td align="center" bgcolor="#FFFFFF" width="">
+                            <span><?php echo $order['id'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF"><strong>需求状态：</strong></td>
+                        <td align="center" bgcolor="#FFFFFF" width="">
+                            <input  type="hidden" id="jiu_states" value="<?php echo $order['states'];?>"/>
+                            <span><?php echo $states_name;?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF"><strong>会员名称：</strong></td>
+                        <td align="center" bgcolor="#FFFFFF" width="">
+                            <input  type="hidden" value="<?php echo $user[0]['userid'];?>" id="user_id"/>
+                            <span><?php echo $user[0]['username'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF"><strong>客户姓名：</strong></td>
+                        <td align="center" bgcolor="#FFFFFF" width="">
+                            <span><?php echo $order['customer_name'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF"><strong>联系电话：</strong></td>
+                        <td align="center" bgcolor="#FFFFFF" width="">
+                            <span><?php echo $order['customer_tel'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF"><strong>可用预存款：</strong></td>
+                        <td align="center" bgcolor="#FFFFFF" width="">
+                            <span><?php echo $user[0]['user_money'];?></span>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding-left:50px;font-size:14px;"><strong>药品信息</strong></td>
+                    </tr>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF">商品名称</td>
+                        <td bgcolor="#FFFFFF">商品ID</td>
+                        <td bgcolor="#FFFFFF">新商品ID</td>
+                        <td bgcolor="#FFFFFF">商品编码</td>
+                        <td bgcolor="#FFFFFF">规格</td>
+                        <td bgcolor="#FFFFFF">生产厂家</td>
+                        <td bgcolor="#FFFFFF">参考单价</td>
+                        <td bgcolor="#FFFFFF">咨询数量</td>
+                        <td bgcolor="#FFFFFF">查看库存</td>
+                    </tr>
+                    <?php if(isset($goods)&&!empty($goods)){ foreach($goods as $k=>$v){?>
+                    <tr class="list1 goumai">
+                        <td align="center" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span><a href="http://www.yaofang.cn/goods-<?php echo $v['goods_id'];?>.html" target="_blank"><?php echo $v['goods_name'];?></a></span>
+                        </td>
+                        <td align="center" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span><?php echo $v['goods_id'];?></span>
+                        </td>
+                        <td align="center" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span><?php echo $v['wareid'];?></span>
+                        </td>
+                        <td align="center" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span><?php echo $v['goods_sn_id'];?></span>
+                        </td>
+                        <!--
+                        <td align="center" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span><?php echo $v['wareid'];?></span>
+                        </td>
+                        -->
+                        <td align="center" bgcolor="#FFFFFF"  class="" style="padding:0 10px;">
+                            <span><?php echo $v['guige'];?></span>
+                        </td>
+                        <td align="center" bgcolor="#FFFFFF"  class="" style="padding:0 10px;">
+                            <span><?php echo $v['company'];?></span>
+                        </td>
+                        <td align="center" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span class="goods<?php echo $k;?>"><?php echo $v['goods_price'];?></span>
+                        </td>
+
+                        <td align="center" bgcolor="#FFFFFF"   style="padding:0 10px;">
+                            <span><?php echo $v['goods_num'];?></span>
+                        </td>
+                        <td align="center" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span><a href="<?php echo SITE; ?>mendian/kucun/<?php echo $v['goods_sn_id'];?>" target="_blank">查看库存</a></span>
+                        </td>
+
+                    </tr>
+                    <?php }}?>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF"><strong>客户留言：</strong></td>
+                        <td colspan="15" bgcolor="#FFFFFF"><?php if($order['message']!=""){echo $order['message'];}else{echo "无";};?></td>
+                    </tr>
+                </table>
+                <br/>
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding-left:50px;font-size:14px;"><strong>配送信息</strong>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">收货人：</td>
+                        <td align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <span><?php echo $order['name'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">手机号：</td>
+                        <td align="left" bgcolor="#FFFFFF" style="padding:10px;">
+                            <span><?php echo $order['tel'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">座机号：</td>
+                        <td align="left" bgcolor="#FFFFFF" style="padding:10px;">
+                            <span><?php echo $order['home_tel'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">邮编：</td>
+                        <td align="left" bgcolor="#FFFFFF" style="padding:10px;">
+                            <span><?php echo $order['youbian'];?></span>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">送货地址：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:10px;">
+                            <span><?php echo $order['address'];?></span>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">付款方式：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <?php if($states==5){?>
+                            <input type="radio" name="fukuan"  value="0"/>门店收款&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="fukuan" value="1" checked="checked"/>总部代收
+                            <?php }else{?>
+                            <span><?php if($order['fukuan']==0){echo "门店收款";}elseif($order['fukuan']==1){echo "总部代收";};?></span>
+                            <?php }?>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">配送费用：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <span><?php echo $order['fee'];?></span>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">配送类型：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <span><?php echo $order['deliver_type_name'];?></span>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">处理门店：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <span><?php echo $order['shop_name'];?></span>
+                        </td>
+                    </tr>
+                    <?php
+                    $array=array(365,506,428,32,496,433,498,367,444,450);
+                    if($states==1||$states==9){
+                        if($order['shop_id']<22){
+                        ?>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">调配门店：</td>
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                           <form  method="post" action="<?php echo SITE; ?>mendian/tiaopei"  enctype="multipart/form-data">
+                                调配到 <select  id="pro_id" onchange="shop_mendian();">
+                                    <option value="0">请选择省份</option>
+                                    <option value="1">北京</option>
+                                    <option value="2">上海</option>
+                                    <option value="3">辽宁</option>
+                                    <option value="4">山东</option>
+                                    <option value="5">江苏</option>
+                                   <!--
+                                    <option value="6">陕西</option>
+                                    -->
+                                    <option value="7">广东</option>
+                                    <option value="8">湖北</option>
+                                    <option value="0">三方</option>
+                                </select>
+                                <select  id="shop_id" name="shop_id">
+                                    <option value="0">请选择门店</option>
+                                </select>&nbsp;&nbsp;
+                                <input type="hidden" name="tiaopei_states" value="<?php echo $states;?>"/>
+                                <input type="hidden" name="id" value="<?php echo $order['id'];?>"/>
+                                <input type="submit"  value="确定调配"/>
+                           </form>
+                        </td>
+                    </tr>
+                    <?php } }?>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF" width="">客服留言：</td>
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                            <span><?php echo $order['kefu_message'];?></span>
+                        </td>
+                    </tr>
+
+                    <?php if($states==7){?>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF" width="">派送单号：</td>
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                            <span><?php echo $order['xiao_id'];?></span>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF" width="">内部单号：</td>
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                            <input type="text" name="hai_id" id="hai_id"/><!--<span>(只允许录入七位单号)</span>-->
+                        </td>
+                    </tr>
+                    <?php }?>
+
+                    <?php if($states==2){?>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF" width="">派送单号：</td>
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                            <input type="text" name="xiao_id" id="xiao_id"/>
+                            <a href="<?php echo SITE; ?>mendian/dayin/<?php echo $order['id']; ?>/<?php echo $user[0]['userid']; ?>"  target="_blank" style="text-decoration: none;">
+                                <input  type="button" value="打印" style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"/></a>
+                            <a href="<?php echo SITE; ?>mendian/dayin_txm/<?php echo $order['id']; ?>/<?php echo $user[0]['userid']; ?>"  target="_blank" style="text-decoration: none;">
+                                <input  type="button" value="打印拣货单" style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"/></a>&nbsp;&nbsp;
+                            <a href="<?php echo SITE; ?>mendian/dayin_kuaidi/<?php echo $order['id']; ?>/1"  target="_blank" style="text-decoration: none;font-size: 15px;"><strong>普通货款单</strong></a>&nbsp;&nbsp;
+                            <a href="<?php echo SITE; ?>mendian/dayin_kuaidi/<?php echo $order['id']; ?>/2"  target="_blank" style="text-decoration: none;font-size: 15px;"><strong>代收货款单</strong></a>
+                        </td>
+                    </tr>
+                    <?php }?>
+
+                    <?php if($states==3){?>
+                        <tr class="list1 goumai">
+                            <td bgcolor="#FFFFFF" width="">内部单号：</td>
+                            <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                                <span><?php echo $order['sign_id'];?></span>
+                            </td>
+                        </tr>
+                        <tr class="list1 goumai">
+                            <td bgcolor="#FFFFFF" width="">派送单号：</td>
+                            <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                                <span><?php echo $order['xiao_id'];?></span>
+                            </td>
+                        </tr>
+                    <?php }?>
+
+
+                    <tr class="list1 goumai">
+                        <input type="hidden" name="total" id="total" value=""/>
+                        <td bgcolor="#FFFFFF" colspan="15">
+                            本需求共合计金额：<strong style="color:red;font-size:18px;"><?php echo $order['total'];?></strong>
+                        </td>
+                    </tr>
+
+                </table>
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0">
+                    <tr>
+                        <td bgcolor="#FFFFFF" width="12%;" align="center" style="font-size:14px;"><strong>操作记录</strong>
+                        </td>
+                        <td bgcolor="#FFFFFF" align="left" width="88%" height="12" style="color:red;padding:2px 10px;font-size:14px;">
+                            <?php if(isset($log)&&!empty($log)){ foreach($log as $log_v){
+                                echo "<p style='padding:2px 0'>".$log_v."</p>";
+                            }}?>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td bgcolor="#FFFFFF" width="12%;" align="center" style="font-size:14px;"><strong>操作留言</strong>
+                        </td>
+                        <td bgcolor="#FFFFFF" align="left" width="88%" height="12" style="color:red;padding:2px 10px;font-size:14px;">
+                            <select  id="moban_id" onchange="moban_id();">
+                                <option value="">使用模板语句快速填写</option>
+                                <option>供应商断货</option>
+                                <option>备货时长</option>
+                                <option>门店缺货</option>
+                                <option>重复信息</option>
+                                <option>顾客取消</option>
+                                <option>测试信息</option>
+                                <option>已经购买</option>
+                                <option>系统问题</option>
+                                <option>延时配送</option>
+                                <option>顾客拒收</option>
+                                <option>支付问题</option>
+                                <option>其它等原因</option>
+                            </select><br/>
+                            <textarea name="kefu_message" cols="50" rows="" id="caozuo_id"></textarea>(作废时必填)
+                        </td>
+                    </tr>
+                </table>
+                <div class="add" id="disabled">
+                    <?php if($states==1){?>
+                        <button onclick="return states(2);" id="states2" type="button" >已确认</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onclick="return states(4);" id="states4"type="button" >作废</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php }elseif($states==2){?>
+                        <button onclick="return states(7);" id="states7"type="button" >已处理</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onclick="return states(4);" id="states4"type="button" >作废</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php }elseif($states==5){?>
+                        <button onclick="return states(1);" id="states1"type="button" >已沟通</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onclick="return states(5);" id="states5"type="button" >转预存款</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onclick="return states(4);" id="states4"type="button" >作废</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php }elseif($states==7){?>
+                        <button onclick="return states(3);" id="states3"type="button" >已完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onclick="return states(4);" id="states4"type="button" >作废</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php }elseif($states==9){?>
+                        <button onclick="return states(110);" id="states110"type="button" >再次分配</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button onclick="return states(10);" id="states10"type="button" >取消</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php }?>
+                    <?php if($states==3&&$order['jiesuan']==0&&($_SESSION['username']=='技术部测试'||$_SESSION['username']=='jw_1120'||$_SESSION['username']=='jw_3512')){?>
+                        <button onclick="return states(4);" id="states4"type="button" >作废</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php }?>
+                    <button onclick="return states(8);" id="states8"type="button" >售后</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button onclick="return states(111);" id="states111"type="button">返回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php if($states==1&&$order['fukuan']==0&&$_SESSION['u_type']==1){?>
+                        <button onclick="return states(0);" id="states4"type="button" >还原</button>
+                    <?php }?>
+                </div>
+        </div>
+    </div>
+
+</div>
+<!--right厂家管理 查询系统 付款查询 end-->
+
+</body>
+</html>

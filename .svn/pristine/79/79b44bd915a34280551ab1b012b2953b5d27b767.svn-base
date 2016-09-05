@@ -1,0 +1,42 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Administrator
+ * Date: 13-5-16
+ * Time: 下午1:34
+ * To change this template use File | Settings | File Templates.
+ */
+class Guolv{
+    //入库时过滤数据
+    public function add_slashes($data){
+        if(!isset($data))return;
+        if(is_array($data)){
+            foreach($data as $k=>$val){
+                if(is_array($val)){
+                    add_slashes($val);
+                }else{
+                    $arr[$k]=addslashes($val);
+                }
+            }
+        }else{
+            $data=addslashes($data);
+        }
+        return $arr;
+    }
+    //出库时再过滤数据
+    public function strip_slashes($data){
+        if(!isset($data))return;
+        if(is_array($data)){
+            foreach($data as $k=>$val){
+                if(is_array($val)){
+                    strip_slashes($val);
+                }else{
+                    $arr[$k]=stripslashes($val);
+                }
+            }
+        }else{
+            $arr=stripslashes($data);
+        }
+        return $arr;
+    }
+}

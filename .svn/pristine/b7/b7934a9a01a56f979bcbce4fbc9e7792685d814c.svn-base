@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/jquery.js"></script>
+    <title>药品管理-品类管理</title>
+    <script>
+        function del(){
+            if(confirm("您确定要删除该数据么？")) // confirm("您确定要删除该数据么？");
+            {
+                return true;
+            }else {
+                return false;
+            }
+        }
+        function shop_mendian(i){
+                    var pro_id=$("#pro_id"+i).val();
+                    $.post('<?php echo SITE; ?>shop/get_mendian/'+pro_id, function(data){ $("#shop_id"+i).html(data);});
+        }
+    </script>
+
+<body>
+<!--right厂家管理 查询系统 付款查询 start-->
+<div class="right" id="right">
+    <div class="right-main">
+        <div class="title">
+            <span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;">需求管理</span>
+            <span style="font-size:14px; color:#3c8cc7; font-weight:bold;">-查询结果 <a href="<?php echo SITE.'mendian/export';?>">导出</a></span>
+
+        </div>
+        <div class="infor">
+            <p style="margin-bottom: 5px;font-size: 14px;">您选择的查询条件：<?php echo $tj_display;?></p>
+            <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0">
+                <tr class="til">
+                    <td height="39" class="">操作</td>
+                    <td height="39" class="">编号</td>
+                    <td height="39" class="">配送类型</td>
+                    <td height="39" class="">状态</td>
+                    <td height="39" class="">会员名</td>
+                    <td height="39" class="">顾客姓名</td>
+                    <td height="39" class="">电话</td>
+                    <td height="39" class="">负责门店</td>
+                    <td height="39" class="">信息登记员</td>
+                    <td height="39" class="">药师回访员</td>
+                    <td height="39" class="">咨询时间</td>
+                    <td height="39" class="">回访时间</td>
+                    <td height="39" class="">来源</td>
+
+                </tr>
+    <?php
+    if (!empty($order)){
+	foreach ($order as $key=>$val)
+	{
+        ?>
+                <tr class="list">
+                    <td bgcolor="#FFFFFF">
+                        <a href="<?php echo SITE.'mendian/detail_show/'.$val["id"].'/'.$val["user_id"]."/".$val["states"]; ?>">
+                            查看
+                        </a>
+
+                    </td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["id"];?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["deliver_type_name"];?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["states_name"];?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["username"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["customer_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["customer_tel"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["shop_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["a_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["b_name"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["addtime"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["ctime"] ?></td>
+                    <td bgcolor="#FFFFFF"><?php echo $val["from_id"] ?></td>
+
+                </tr>
+        <?php } }else{ ?>
+        <tr style="background:#fff;"><td colspan="15" align="center">暂无数据</td></tr>
+        <?php }?>
+                <?php if(isset($page)&&!empty($page)){?>
+                    <tr class="list">
+                        <td bgcolor="#FFFFFF" colspan="15" class="pagination"><?php echo $page  ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+
+        </div>
+
+
+    </div>
+</div>
+<!--right厂家管理 查询系统 付款查询 end-->
+</body>
+</html>

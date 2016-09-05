@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="<?php echo SITE; ?>public/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo SITE; ?>public/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript"  src="<?php echo SITE; ?>public/js/jquery.js"></script>
+    <title>需求管理-完善</title>
+    <script>
+         function check(){
+                  var form=document.form;
+                    if(form.name.value==""){
+                        alert("收货人不能为空");
+                        form.name.focus();
+                        return false;
+                    }
+                    if($("#tel").val()==""){
+                        alert("收货人电话不能为空");
+                        return false;
+                    }
+                     if($("#addr").val()==""){
+                         alert("收货人地址不能为空");
+                         return false;
+                     }
+                 $("#disabled").html("正在处理中...");
+                 form.submit();
+               }
+        //药品数量
+        function goods_num(k){
+            var num=parseInt($(".goods"+k)[1].value);
+            var price=parseFloat($(".goods"+k)[0].innerHTML);
+            $(".goods"+k)[3].innerHTML=accMul(num, price);
+            var count=<?php echo count($goods);?>;//
+            var sum_p=new Array();
+            for(var i=0;i<count;i++){
+                sum_p.push(parseFloat($(".goods"+i)[3].innerHTML));
+            }
+            var s=0;
+            for(var i=0;i<sum_p.length;i++){
+                s=accAdd(s,sum_p[i]);
+            }
+            //alert(eval(sum_p.join('+')));
+            $("#goods_sum").html(s);
+            var kuaidi=$("#kuaidifei").val();
+            var ss=accAdd(s,kuaidi);
+            $("#zongji").html(ss);
+            $("#total").val(ss);
+        }
+         //加法函数
+         function accAdd(arg1, arg2) {
+             var r1, r2, m;
+             try {
+                 r1 = arg1.toString().split(".")[1].length;
+             }
+             catch (e) {
+                 r1 = 0;
+             }
+             try {
+                 r2 = arg2.toString().split(".")[1].length;
+             }
+             catch (e) {
+                 r2 = 0;
+             }
+             m = Math.pow(10, Math.max(r1, r2));
+             return (arg1 * m + arg2 * m) / m;
+         }
+         //乘法函数
+         function accMul(arg1, arg2) {
+             var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+             try {
+                 m += s1.split(".")[1].length;
+             }
+             catch (e) {
+             }
+             try {
+                 m += s2.split(".")[1].length;
+             }
+             catch (e) {
+             }
+             return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+         }
+         //加载完毕后计算数量
+         $(function(){
+             var count=<?php echo count($goods);?>;
+             var sum_p=new Array();
+             for(var i=0;i<count;i++){
+                 num=$(".goods"+i)[1].value;
+                 price=$(".goods"+i)[0].innerHTML;
+                 sum=accMul(num, price)
+                 sum_p.push(sum);
+             }
+             var s=0;
+             for(var i=0;i<sum_p.length;i++){
+                 s=accAdd(s,sum_p[i]);
+             }
+             $("#goods_sum").html(s);
+             var kuaidi=$("#kuaidifei").val();
+             var ss=accAdd(s,kuaidi);
+             $("#zongji").html(ss);
+             $("#total").val(ss);
+         })
+        //快递费变化
+        function kuaidi(){
+            var kuaidi=$("#kuaidifei").val();
+            var goods_sum=$("#goods_sum").html();
+            var s=accAdd(kuaidi, goods_sum)
+            $("#zongji").html(s);
+            $("#total").val(s);
+        }
+        //地址变化
+       $(function(){
+           $("#address").change(function(){
+               var address=$(this).val();
+               var strs= new Array(); //定义一数组
+                   strs=address.split("#"); //字符分割
+               $("#person").val(strs[0]);
+               $("#tel").val(strs[1]);
+               $("#addr").val(strs[2]);
+           })
+       })
+        //调配
+         function shop_mendian(){
+             var pro_id=$("#pro_id").val();
+             $.post('<?php echo SITE; ?>shop/get_mendian/'+pro_id, function(data){ $("#shop_id").html(data);});
+         }
+    </script>
+<style>
+    a{text-decoration: none;}
+    button { border:1px solid #369;
+     font-size:12px; padding:0 8px; *padding:0 10px; text-align:center; overflow:visible; height:21px; line-height:18px; padding-bottom:2px; _padding-top:4px; _line-height:10px;}
+</style>
+<body>
+<!--right厂家管理 查询系统 付款查询 start-->
+<div class="right" id="right">
+    <div class="right-main">
+        <div class="title"><span style="font-size:16px; color:#0454df; padding-left:15px; font-weight:bold;">需求管理</span><span style="font-size:14px; color:#3c8cc7; font-weight:bold;">-完善信息</span></div>
+        <div class="infor">
+            <form  method="post"   action="<?php echo SITE; ?>shop/add_order" style="margin-top:0px;+margin-top:-35px;_margin-top:-35px;"  name="form" enctype="multipart/form-data">
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF" width="10%"><strong>会员信息</strong></td>
+                        <td colspan="7" bgcolor="#FFFFFF">
+                            <input  type="hidden"name="id" value="<?php echo $id;?>"/>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">会员名称：</td>
+                        <td align="left" bgcolor="#FFFFFF" width="" style="padding:0 10px;">
+                            <input  type="hidden"name="user_id" value="<?php echo $user[0]['userid'];?>"/>
+                            <span><?php echo $user[0]['username'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">客户名称：</td>
+                        <td align="left" bgcolor="#FFFFFF" width="" style="padding:0 10px;">
+                            <span><?php echo $order['customer_name'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">联系电话：</td>
+                        <td align="left" bgcolor="#FFFFFF" width="" style="padding:0 10px;">
+                            <span><?php echo $order['customer_tel'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">可用预存款：</td>
+                        <td align="left" bgcolor="#FFFFFF" width="" style="padding:0 10px;">
+                            <span><?php echo $user[0]['user_money'];?></span>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF"><strong>药品信息</strong></td>
+                        <td colspan="15" bgcolor="#FFFFFF">&nbsp;</td>
+                    </tr>
+                    <?php if(isset($goods)&&!empty($goods)){ foreach($goods as $k=>$v){?>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">编号：</td>
+                        <td align="left" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span><?php echo $v['goods_id'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">药品名称：</td>
+                        <td align="left" bgcolor="#FFFFFF" width="25%" style="padding:0 10px;">
+                            <input  name="goods[<?php echo $k;?>][]" type="hidden" value="<?php echo $v['id'];?>"/>
+                            <span><a href="http://www.yaofang.cn/goods-<?php echo $v['goods_id'];?>.html" target="_blank"><?php echo $v['goods_name'];?></a></span>
+                        </td>
+                        <td bgcolor="#FFFFFF">药品单价：</td>
+                        <td align="left" bgcolor="#FFFFFF"  style="padding:0 10px;">
+                            <span class="goods<?php echo $k;?>"><?php echo $v['price'];?></span>
+                        </td>
+                        <td bgcolor="#FFFFFF" >购买数量：</td>
+                        <td align="left" bgcolor="#FFFFFF"   style="padding:0 10px;">
+                            <input  name="goods[<?php echo $k;?>][]"  onkeyup="goods_num(<?php echo $k;?>);" class="goods<?php echo $k;?>" style="width:20px;" value="1"/>
+                        </td>
+                        <td bgcolor="#FFFFFF" >此药品总额：</td>
+                        <td align="left" bgcolor="#FFFFFF"  class="goods<?php echo $k;?>" style="padding:0 10px;">
+                            <span style="color:red;" class="goods<?php echo $k;?>"><?php echo $v['price'];?></span>
+                        </td>
+                    </tr>
+                    <?php }}?>
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF"><strong>备注信息</strong></td>
+                        <td colspan="15" bgcolor="#FFFFFF"><?php if($order['message']!=""){echo $order['message'];}else{echo "无";};?></td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF" colspan="10">药品总计金额：<span style="color:red;" id="goods_sum">0</span></td>
+                    </tr>
+                </table>
+                <br/>
+                <table bgcolor="#CCCCCC" width="100%" border="0" cellspacing="1" cellpadding="0" id="goumai">
+                    <tr class="list1">
+                        <td bgcolor="#FFFFFF"><strong>配送信息</strong></td>
+                        <td align="left" colspan="7" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <select name="pro" id="address" style="width:50%;">
+                                <option value="">请选择收货地址信息</option>
+                                <?php if(isset($address)&&!empty($address)){ foreach($address as $v){ ?>
+                                    <option value="<?php echo $v;?>"><?php echo $v;?></option>
+                                <?php }}?>
+                            </select>&nbsp;&nbsp;(若无信息请手动填写)
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">收货人：</td>
+                        <td align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <input  name="name" value="" id="person"/>
+                        </td>
+                        <td bgcolor="#FFFFFF">电话：</td>
+                        <td align="left" bgcolor="#FFFFFF" style="padding:10px;">
+                            <input  name="tel"  id="tel" value="<?php echo $order['customer_tel'];?>"/>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">送货地址：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:10px;">
+                            <input   name="address" id="addr"  style="width:50%;"/>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">付款方式：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <input type="radio" name="fukuan" value="0" checked="checked"/>门店收款&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="fukuan" value="1"/>总部代收
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">配送方式：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            配送费&nbsp;<input type="text" name="fee" id="kuaidifei" value="0" onkeyup="kuaidi();" style="width:50px;"/>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">处理门店：</td>
+                        <td colspan="7" align="left" bgcolor="#FFFFFF" style="padding:0 10px;">
+                            <input type="hidden" name="shop_id_jiu"  value="<?php echo $order['shop_id'];?>"  style="width:50px;"/>
+                            <span><?php echo $order['shop_name'];?></span>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF">调配门店：</td>
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                        调配到 <select  id="pro_id" onchange="shop_mendian();">
+                            <option value="0">请选择省份</option>
+                            <option value="1">北京</option>
+                            <option value="2">上海</option>
+                            <option value="3">辽宁</option>
+                            <option value="4">山东</option>
+                            <option value="5">江苏</option>
+                            <option value="6">陕西</option>
+                            <option value="7">广东</option>
+                            <option value="8">湖北</option>
+                        </select>
+                        <select  id="shop_id" name="shop_id_new">
+                            <option value="0">请选择门店</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <td bgcolor="#FFFFFF" width="">
+                            <strong>备注信息：</strong>
+                        </td>
+                        <td bgcolor="#FFFFFF" colspan="15" align="left" style="padding:0 10px;">
+                            <textarea name="kefu_message" cols="50" rows="" ></textarea>
+                        </td>
+                    </tr>
+                    <tr class="list1 goumai">
+                        <input type="hidden" name="total" id="total" value=""/>
+                        <td bgcolor="#FFFFFF" colspan="7">本需求共合计金额：<strong style="color:red;font-size:18px;" id="zongji">0</strong></td>
+                    </tr>
+                </table>
+                <div class="add" id="disabled"><input style="width:69px; height:24px; background:url(<?php echo SITE; ?>public/images/bc.jpg); border:0; color:#fff; cursor:pointer;"   onclick="return check();" type="button" value="保存" /></div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!--right厂家管理 查询系统 付款查询 end-->
+
+</body>
+</html>
