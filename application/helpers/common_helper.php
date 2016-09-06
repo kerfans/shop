@@ -3,9 +3,16 @@
 // 辅助测试输出函数
 function dd($s)
 {
+    echo '<meta charset="utf-8">';
 	echo '<pre>';
 	print_r($s);
-	die;
+}
+function pp($s)
+{
+    echo '<meta charset="utf-8">';
+    echo '<pre>';
+    print_r($s);
+    die;
 }
 
 

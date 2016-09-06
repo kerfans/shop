@@ -1,16 +1,27 @@
 <?php
 /**
- * 代金券操作模型
+ * 流量操作模型
  * User: w
  * Date: 2016/9/5
  * Time: 10:31
  */
-class Bonus_model extends CI_Model
+class Flus_model extends CI_Model
 {
     function __construct()
     {
         parent::__construct();
         $this->load->database();
+    }
+    /**
+     * 添加到流量表
+     * $message 传入关联数组
+     * return 返回上一次添加的ID
+     */
+    function addFlus($message)
+    {
+        $message['atime'] = time();
+        $this->db->insert('ecs_point_goods_traffic', $message);
+        return $this->db->insert_id();
     }
     /**
      * 查询原代金券表（ecs_bonus_type）中的信息
@@ -20,8 +31,8 @@ class Bonus_model extends CI_Model
      */
     function select_bonus($type,$content)
     {
-       $this->db->select('type_id,type_name,type_money,send_type,expire_type,use_start_date,use_end_date,min_goods_amount,mod_type,prescription_type,is_all,dealer_id');
-       $this->db->from('ecs_bonus_type');
+        $this->db->select('type_id,type_name,type_money,send_type,expire_type,use_start_date,use_end_date,min_goods_amount,mod_type,prescription_type,is_all,dealer_id');
+        $this->db->from('ecs_bonus_type');
         if($type == 0){
             $this->db->where("type_id",$content);
         }else{

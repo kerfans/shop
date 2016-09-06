@@ -56,7 +56,7 @@
                         <td>{$foo['use_start_date']|date_format:"%Y-%m-%d %H:%M:%S"}</td>
                         <td>{$foo['use_end_date']|date_format:"%Y-%m-%d %H:%M:%S"}</td>
                         <td>
-                            <a class="btn btn-sm btn-success" href="/index.php/admin/addCash/edit_cash/{$foo['type_id']}">添加并编辑</a>
+                            <a class="btn btn-sm btn-success" href="/index.php/admin/addCash/edit_cash/{$foo['type_id']}">编辑并添加</a>
                         </td>
                     </tr>
                 {/foreach}

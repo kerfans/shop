@@ -13,6 +13,8 @@ class AddCash extends MY_Controller
         $this->load->helper('url');
         $this->load->library('pagination');
         $this->load->model('bonus_model','bouns');
+        $this->load->model('goods_model','goods');
+        $this->load->model('type_model','type');
     }
     //添加代金券商品
     public function index()
@@ -65,14 +67,84 @@ class AddCash extends MY_Controller
     //编辑代金券商品
     public function edit_cash()
     {
+        $error = '';
+        $type_id = $this->uri->segment(4);              //接收代金券ID
+        $res = $this->bouns->select_bonus(0,$type_id);  //获取当前代金券信息
+//        $filed = "id,class,name,status";                //查询分类表（类别ID，分类ID,名称，状态）
+//        $where = "class = 2";                           //默认为虚拟商品分类
+//        $rem = $this->type->select($filed,$where);      //获取当前所有分类
+//        $this->assign('types',$rem);
+        $this->assign('data', $res[0]);
         if(!$_POST){
-            $type_id = $this->uri->segment(4);      //接收代金券ID
-            $res = $this -> bouns ->select_bonus(0,$type_id);
-            $this->assign('data', $res[0]);
-            $this -> display('admin/edit_cash.tpl');
+            $this->assign('errors',$error);
+            $this->display('admin/edit_cash.tpl');
         }else{
-            
+            //表单验证不为空
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('title','名称','required');
+            $this->form_validation->set_rules('stock_num','库存数量','required');
+            $this->form_validation->set_rules('sort','权重','required');
+            $this->form_validation->set_rules('describe','说明描述','required');
+            $this->form_validation->set_rules('cost_points','兑换积分','required');
+            $this->form_validation->set_message('required','%s必须填写');
+            if($this->form_validation->run() == FALSE)
+            {
+                $this->assign('errors',$error);
+                $this->display('admin/edit_cash.tpl');
+            }else {
+                //上传图片处理
+                $config['upload_path']      = UPLOADS_URL.'/cash/'.date("Y/m/d");
+                $config['allowed_types']    = 'gif|jpg|png';
+                $config['max_size']         = 2048;
+                $config['max_width']        = 1024;
+                $config['max_height']       = 768;
+                $config['encrypt_name']     = TRUE;
+                if(!file_exists(UPLOADS_URL.'/cash/'.date("Y/m/d"))){
+                    mkdir(UPLOADS_URL.'/cash/'.date("Y/m/d"),0777,true);
+                }
+
+                $this->load->library('upload', $config);
+                if ( ! $this->upload->do_upload('picture'))
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->assign('errors',$error);
+                    $this->display('admin/edit_cash.tpl');
+                }
+                else
+                {
+                    $data = array('upload_data' => $this->upload->data());
+                    //对上传的图片处理
+                    $this->load->library('image_lib');
+                    $config['image_library'] = 'gd2';
+                    $config['source_image'] = $data['upload_data']['full_path'];
+                    $config['new_image'] = $data['upload_data']['full_path'];
+                    $config['create_thumb'] = TRUE;
+                    $config['maintain_ratio'] = TRUE;
+                    $config['width']     = 750;
+                    $config['height']   = 500;
+
+                    $this->image_lib->initialize($config);
+                    if ( !$this->image_lib->resize())
+                    {
+                        $error =  $this->image_lib->display_errors();
+                        $this->assign('errors',$error);
+                        $this->display('admin/edit_cash.tpl');
+                    }else{
+                        //生成缩略图名称和路径
+                        $min_pic = $data['upload_data']['file_path'].$data['upload_data']['raw_name'].'_thumb'.$data['upload_data']['file_ext'];
+                        //删除原图
+                        unlink($data['upload_data']['full_path']);
+                        $message = $this->input->post();  //接收所有表单数据
+                        $message['picture'] = $min_pic;   //获取上传文件名称
+                        $message['class'] = 2;            //默认虚拟类别
+                        $message['tid'] = 1;              //默认代金券分类
+                        $res = $this->goods->goods($message);    //存入到商品列表
+                        if($res){
+                            redirect('admin/addCash');
+                        }
+                    }
+                }
+            }
         }
-       
     }
 }

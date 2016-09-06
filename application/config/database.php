@@ -48,11 +48,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['port'] = "3306";
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'shop';
+$db['default']['hostname'] = '192.168.10.188';
+$db['default']['port'] = "3308";
+$db['default']['username'] = 'jewim_test_133';
+$db['default']['password'] = 'HaveAniceDay133';
+$db['default']['database'] = 'ecs_yaofang';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
