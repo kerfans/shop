@@ -94,15 +94,15 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" >选择图片</label>
                         <div class="col-sm-4">
-                            <input type="file" name="picture">
+                            <input type="file" name = 'picture' id="up_img"/><br><br><br><br><br><br><br><br>
+                            <div class="form-group" >
+                                <div class="col-sm-6 ">
+                                    <input class="btn btn-bg btn-success" type="submit" value="确 认 添 加">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </fieldset>
-                <br><br>
-                <fieldset>
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <input class="btn btn-bg btn-success" type="submit" value="确 认 添 加">
+                        <div class="col-sm-4">
+                            <div id="imgdiv"><img id="imgShow" width="300" /></div>
                         </div>
                     </div>
                 </fieldset>

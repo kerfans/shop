@@ -156,41 +156,41 @@
                     </div>
                 </div>
             </fieldset>
-        <fieldset>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="ds_username" style="color: red">类别（不可更改）</label>
-                <div class="col-sm-4">
-                        <label class="form-control">虚拟</label>
-                </div>
-                <label class="col-sm-2 control-label" for="ds_password" style="color: red">类型（不可更改）</label>
-                <div class="col-sm-4">
-                        <label class="form-control">代金券</label>
-                </div>
-            </div>
-        </fieldset>
-        <br><br>
-        <fieldset>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="ds_username" style="color: red">代金券说明描述</label>
-                <div class="col-sm-4">
-                    <textarea name="describe" id="" cols="50" rows="10"></textarea>
-                </div>
-            </div>
-        </fieldset>
             <fieldset>
-                <legend style="color: red">上传显示图片</legend>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" >选择图片</label>
+                    <label class="col-sm-2 control-label" for="ds_username" style="color: red">类别（不可更改）</label>
                     <div class="col-sm-4">
-                        <input type="file" name="picture">
+                            <label class="form-control">虚拟</label>
+                    </div>
+                    <label class="col-sm-2 control-label" for="ds_password" style="color: red">类型（不可更改）</label>
+                    <div class="col-sm-4">
+                            <label class="form-control">代金券</label>
                     </div>
                 </div>
             </fieldset>
             <br><br>
             <fieldset>
                 <div class="form-group">
-                    <div class="col-sm-6">
-                        <input class="btn btn-bg btn-success" type="submit" value="确 认 添 加">
+                    <label class="col-sm-2 control-label" for="ds_username" style="color: red">代金券说明描述</label>
+                    <div class="col-sm-4">
+                        <textarea name="describe" id="" cols="50" rows="10"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend style="color: red">上传显示图片</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" >选择图片</label>
+                    <div class="col-sm-4">
+                        <input type="file" name = 'picture' id="up_img"/><br><br><br><br><br><br><br><br>
+                        <div class="form-group" >
+                            <div class="col-sm-6 ">
+                                <input class="btn btn-bg btn-success" type="submit" value="确 认 添 加">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div id="imgdiv"><img id="imgShow" width="300" /></div>
                     </div>
                 </div>
             </fieldset>

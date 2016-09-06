@@ -42,7 +42,7 @@
                         <td>感冒颗粒</td>
                         <td>@mdo</td>
                         <td>
-                            <a class="btn btn-sm btn-success" href="/index.php/admin/addGoods/edit_goods">添加并编辑</a>
+                            <a class="btn btn-sm btn-success" href="/index.php/admin/addGoods/edit_goods">编辑并添加</a>
                         </td>
                     </tr>
                 </tbody>

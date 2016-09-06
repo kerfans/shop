@@ -193,7 +193,9 @@
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="{$smarty.const.JS_ADMIN_URL}/js/jquery-1.10.2.js"></script>
+    <script src="{$smarty.const.JS_ADMIN_URL}/js/layer/jquery.js"></script>
+    <script src="{$smarty.const.JS_ADMIN_URL}/js/layer/layer.js"></script>
+    <script src="{$smarty.const.JS_ADMIN_URL}/js/layer/uploadPreview.min.js"></script>
     <!-- Bootstrap Js -->
     <script src="{$smarty.const.JS_ADMIN_URL}/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
@@ -203,8 +205,11 @@
     <script src="{$smarty.const.JS_ADMIN_URL}/js/morris/morris.js"></script>
     <!-- Custom Js -->
     <script src="{$smarty.const.JS_ADMIN_URL}/js/custom-scripts.js"></script>
-
-
+    <script>
+        window.onload = function () {
+            new uploadPreview({ UpBtn: "up_img", DivShow: "imgdiv", ImgShow: "imgShow" });
+        }
+    </script>
 </body>
 
 </html>
