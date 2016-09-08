@@ -3,32 +3,50 @@
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">广告轮播图</div>
-        <div class="panel-body">
-            <p>可以进行设置操作。</p>
-        </div>
-
+        
         <!-- Table -->
         <table class="table">
             <thead>
             <tr>
-                <th>#</th>
-                <th>名称</th>
+                <th>序号</th>
+                <th>标题</th>
                 <th>链接地址</th>
                 <th>图片</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
+            {foreach $adinfo as $v}
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td><a class="btn btn-sm btn-primary" href="#">编辑</a>|
-                    <a class="btn btn-sm btn-danger" href="#">删除</a>
+                <th scope="row">{$v->num}</th>
+                <td>{$v->title}</td>
+                <td><a href="{$v->url}">{$v->url}</a></td>
+                <td>{$v->picture}</td>
+                {if $v->status eq 1}
+                <td>可用</td>
+                {else}
+                <td>禁用</td>
+                {/if}
+                <td><a class="btn btn-sm btn-primary" href="ad_update/{$v->id}">编辑</a>|
+                    <a class="btn btn-sm btn-danger del" href="ad_del/{$v->id}">删除</a>
                 </td>
             </tr>
+            {/foreach}
             </tbody>
         </table>
+        <script>
+            $(function()
+            {
+                $('.del').on('click',function(){  
+                    var msg = "您真的确定要删除吗？不能恢复！"; 
+                    if (confirm(msg)==true){ 
+                        return true; 
+                    }else{ 
+                        return false; 
+                    } 
+                });            
+            });           
+        </script>
     </div>
 {/block}

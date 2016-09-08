@@ -11,7 +11,7 @@
     <link href="{$smarty.const.JS_ADMIN_URL}js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
     <link href="{$smarty.const.CSS_ADMIN_URL}css/custom-styles.css" rel="stylesheet" />
-
+    <script src="{$smarty.const.JS_ADMIN_URL}/js/layer/jquery.js"></script>
 </head>
 
 <body>
@@ -117,7 +117,7 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/index.php/admin_login/loginOut"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -177,8 +177,6 @@
                             </li>
                         </ul>
                     </li>
-
-
                 </ul>
             </div>
         </nav>
@@ -193,7 +191,7 @@
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="{$smarty.const.JS_ADMIN_URL}/js/layer/jquery.js"></script>
+    
     <script src="{$smarty.const.JS_ADMIN_URL}/js/layer/layer.js"></script>
     <script src="{$smarty.const.JS_ADMIN_URL}/js/layer/uploadPreview.min.js"></script>
     <!-- Bootstrap Js -->
@@ -209,7 +207,19 @@
         window.onload = function () {
             new uploadPreview({ UpBtn: "up_img", DivShow: "imgdiv", ImgShow: "imgShow" });
         }
+        // js清除网页缓存
+        function timestamp(url){
+            //  var getTimestamp=Math.random();
+            var getTimestamp=new Date().getTime();
+            if(url.indexOf("?")>-1){
+                url=url+"&timestamp="+getTimestamp
+            }else{
+                url=url+"?timestamp="+getTimestamp
+            }
+            return url;
+        }
     </script>
+
 </body>
 
 </html>

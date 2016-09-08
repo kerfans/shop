@@ -58,7 +58,7 @@ class TypeList extends MY_Controller {
     //分类列表
     public function type_list()
     {
-        $res=$this->type->select('id,class,name','','status desc,id asc','');
+        $res=$this->type->select('id,class,name,status','','status desc,id asc','');
         $entity=array();
         $virtual=array();
         // dd($res);
@@ -122,6 +122,7 @@ class TypeList extends MY_Controller {
             $typename = $this->input->post('typename');
             $classid=$this->input->post('tid');
             $status=$this->input->post('status');
+            $remark=$this->input->post('remark');
             $this->load->library('form_validation');
             if(trim($typename)!==$res[0]->name)
             {
@@ -131,7 +132,7 @@ class TypeList extends MY_Controller {
                 $this->form_validation->set_rules('typename', '类型名称', 'trim|required');
             }     
             $this->form_validation->set_message('required', '%s必须');
-            $this->form_validation->set_rules('remark','备注','trim|max_length[12]');
+            $this->form_validation->set_rules('remark','备注','trim|max_length[60]');
             $this->form_validation->set_message('max_length','%s长度过长');           
             if ($this->form_validation->run() == FALSE)
             {          
@@ -141,24 +142,48 @@ class TypeList extends MY_Controller {
                 $data=array(
                     'name'=>$typename,
                     'status'=>$status,
+                    'remark'=>$remark,
                     'mtime'=>time(),
-                    'caid'=>$this->session->userdata('aid')
+                    'maid'=>$this->session->userdata('aid')
                 );
                 //dd($data);
                 $affected_rows=$this->type->update($classid,$data);
-                dd($affected_rows);
-                exit;
-                if($insert_id)
+                //dd($affected_rows);
+                if($affected_rows)
                 {
-                    echo '<meta charset="utf-8"/><script>alert("添加成功");</script>';
+                    echo '<meta charset="utf-8"/><script>alert("更改成功");</script>';              
                     redirect('admin/typeList/type_list','refresh');          
                 }else{
-                    echo '<meta charset="utf-8"/><script>alert("添加失败");</script>';
-                    redirect('admin/typeList/index','refresh');
+                    echo '<meta charset="utf-8"/><script>alert("更改失败");</script>';
+                    redirect('admin/typeList/type_update/'.$classid,'refresh');
                 }
                 
             }
             
+        }
+    }
+
+    //删除
+    public function del($id)
+    {
+        $this->load->model('goods_model','goods');
+        $count=$this->goods->getCount('id='.$id)[0]->count;
+        //dd($count);
+        if($count)
+        {
+            echo '<meta charset="utf-8"/><script>alert("该分类有'.$count.'个商品，不能删除");</script>';
+            redirect('admin/typeList/type_list','refresh');
+        }else{
+            $class=$this->type->select('class','id='.$id)[0]->class;
+            //dd($class);
+            if($class==2)
+            {
+                echo '<meta charset="utf-8"/><script>alert("虚拟分类不能删除");</script>';
+                redirect('admin/typeList/type_list','refresh');
+            }
+            $this->type->del($id);
+            echo '<meta charset="utf-8"/><script>alert("删除成功");</script>';
+            redirect('admin/typeList/type_list','refresh');
         }
     }
 }

@@ -117,11 +117,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="ds_host" style="color: red">货架显示名称<br>（默认和原名一致）</label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="ds_host" name="title" type="text" value="{$data['type_name']}" placeholder="请填入货架显示名称"/>
+                        <input class="form-control" id="ds_host" name="title" type="text" value="{$data['type_name']}" placeholder="请填入货架显示名称" required/>
                     </div>
                     <label class="col-sm-2 control-label" for="ds_name" style="color: red">代金券数量<br>(初始默认100)</label>
                     <div class="col-sm-4">
-                        <input class="form-control" id="ds_name" name="stock_num" type="text" value="100" placeholder="请输入代金券数量"/>
+                        <input class="form-control" id="ds_name" name="stock_num" type="text" value="100" placeholder="请输入代金券数量" required/>
                     </div>
                 </div>
             </fieldset>
@@ -129,11 +129,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="ds_username" style="color: red">兑换需要积分<br>(初始默认50W)</label>
                     <div class="col-sm-4">
-                        <input class="form-control" type="text" value="500000" name="cost_points" placeholder="请输入兑换需求积分"/>
+                        <input class="form-control" type="text" value="500000" name="cost_points" placeholder="请输入兑换需求积分" required/>
                     </div>
-                    <label class="col-sm-2 control-label" for="ds_password" style="color: red">权重<br>(越大越靠前)</label>
+                    <label class="col-sm-2 control-label" for="ds_password" style="color: red" >权重<br>(越大越靠前)</label>
                     <div class="col-sm-4">
-                        <input class="form-control" type="text" name="sort" value="0" placeholder="请输入权重（越大越靠前显示）"/>
+                        <input class="form-control" type="text" name="sort" value="0" placeholder="请输入权重（越大越靠前显示）" required/>
                     </div>
                 </div>
             </fieldset>
@@ -156,6 +156,7 @@
                     </div>
                 </div>
             </fieldset>
+        <br>
             <fieldset>
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="ds_username" style="color: red">类别（不可更改）</label>
@@ -173,7 +174,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="ds_username" style="color: red">代金券说明描述</label>
                     <div class="col-sm-4">
-                        <textarea name="describe" id="" cols="50" rows="10"></textarea>
+                        <textarea name="describe" id="" cols="50" rows="10" required></textarea>
                     </div>
                 </div>
             </fieldset>

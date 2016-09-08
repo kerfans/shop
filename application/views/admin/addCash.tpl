@@ -15,7 +15,7 @@
                             <option value="1">根据代金券名称查询</option>
                         </select>
                     </div><!-- /btn-group -->
-                    <input type="text" name="content" class="form-control" aria-label="..." placeholder="请输入代金券ID或名称">
+                    <input type="text" name="content" class="form-control" aria-label="..." placeholder="请输入代金券ID或名称" required>
                     <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit">搜索</button>
                   </span>

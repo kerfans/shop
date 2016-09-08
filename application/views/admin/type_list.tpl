@@ -9,16 +9,31 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>序号</th>
                         <th>实体</th>
-                    </tr>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>       
                     </thead>
                     <tbody>
+                    {if $entity}
+                    {foreach $entity as $v}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>|-Mark</td>
+                        <th scope="row">{$v->num}</th>
+                        <td>{$v->name}</td>
+                        {if $v->status==1}
+                        <td>可用</td>
+                        {else}
+                        <td>禁用</td>
+                        {/if}
+                        <td><a href="type_update/{$v->id}">更改</a>&nbsp;|&nbsp;<a href="del/{$v->id}">删除</a></td>
                     </tr>
-
+                    {/foreach}
+                    {else}
+                    <tr>
+                        <td colspan="3">没有分类</td>
+                    </tr>
+                    {/if}
                     </tbody>
                 </table>
 
@@ -34,16 +49,31 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>#</th>
+                        <th>序号</th>
                         <th>虚拟</th>
+                        <th>状态</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {if $virtual}
+                    {foreach $virtual as $v}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>|-Otto</td>
+                        <th scope="row">{$v->num}</th>
+                        <td>{$v->name}</td>
+                        {if $v->status==1}
+                        <td>可用</td>
+                        {else}
+                        <td>禁用</td>
+                        {/if}
+                        <td><a href="type_update/{$v->id}">更改</a>&nbsp;|&nbsp;<a href="del/{$v->id}">删除</a></td>
                     </tr>
-
+                    {/foreach}
+                    {else}
+                    <tr>
+                        <td colspan="3">没有分类</td>
+                    </tr>
+                    {/if}
                     </tbody>
                 </table>
 

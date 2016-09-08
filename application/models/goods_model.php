@@ -24,5 +24,15 @@ class Goods_model extends CI_Model
         $res = $this->db->insert('ecs_point_goods', $message);
         return $res;
     }
-
+    //根据where条件获取数量
+    function getCount($where='')
+    {
+        if($where)
+        {
+            $where=' where '.$where;
+        }
+        $sql="select count(id) count from ecs_point_goods ".$where;
+        $data=$this->db->query($sql);
+        return $data->result();
+    }
 }

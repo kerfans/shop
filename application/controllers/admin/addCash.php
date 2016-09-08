@@ -12,9 +12,9 @@ class AddCash extends MY_Controller
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('pagination');
-        $this->load->model('bonus_model','bouns');
-        $this->load->model('goods_model','goods');
-        $this->load->model('type_model','type');
+        $this->load->model('bonus_model','bouns');      //代金券
+        $this->load->model('goods_model','goods');      //商品总表
+        $this->load->model('type_model','type');        //类型
     }
     //添加代金券商品
     public function index()
@@ -93,14 +93,14 @@ class AddCash extends MY_Controller
                 $this->display('admin/edit_cash.tpl');
             }else {
                 //上传图片处理
-                $config['upload_path']      = UPLOADS_URL.'/cash/'.date("Y/m/d");
+                $config['upload_path']      = UPLOADS_URL.date("Y/m/d");
                 $config['allowed_types']    = 'gif|jpg|png';
                 $config['max_size']         = 2048;
                 $config['max_width']        = 1024;
                 $config['max_height']       = 768;
                 $config['encrypt_name']     = TRUE;
-                if(!file_exists(UPLOADS_URL.'/cash/'.date("Y/m/d"))){
-                    mkdir(UPLOADS_URL.'/cash/'.date("Y/m/d"),0777,true);
+                if(!file_exists(UPLOADS_URL.date("Y/m/d"))){
+                    mkdir(UPLOADS_URL.date("Y/m/d"),0777,true);
                 }
 
                 $this->load->library('upload', $config);
@@ -124,24 +124,24 @@ class AddCash extends MY_Controller
                     $config['height']   = 500;
 
                     $this->image_lib->initialize($config);
+                  //  $this->load->library('image_lib', $config);
+
                     if ( !$this->image_lib->resize())
                     {
                         $error =  $this->image_lib->display_errors();
                         $this->assign('errors',$error);
                         $this->display('admin/edit_cash.tpl');
                     }else{
-                        //生成缩略图名称和路径
-                        $min_pic = $data['upload_data']['file_path'].$data['upload_data']['raw_name'].'_thumb'.$data['upload_data']['file_ext'];
-                        //删除原图
+                        //生成缩略图名称
+                        $min_pic =UPLOADS_URL.date("Y/m/d").'/'.$data['upload_data']['raw_name'].'_thumb'.$data['upload_data']['file_ext'];
+                        //删除原尺寸图
                         unlink($data['upload_data']['full_path']);
+
                         $message = $this->input->post();  //接收所有表单数据
                         $message['picture'] = $min_pic;   //获取上传文件名称
                         $message['class'] = 2;            //默认虚拟类别
                         $message['tid'] = 1;              //默认代金券分类
-                        $res = $this->goods->goods($message);    //存入到商品列表
-                        if($res){
-                            redirect('admin/addCash');
-                        }
+                        $this->goods->goods($message);    //存入到商品列表
                     }
                 }
             }

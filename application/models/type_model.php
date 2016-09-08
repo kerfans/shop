@@ -40,4 +40,10 @@ class Type_Model extends CI_Model {
 		$this->db->update('ecs_point_goods_type', $data);
 		return $this->db->affected_rows();
 	}
+
+	//删除
+	public function del($id)
+	{
+		$this->db->delete('ecs_point_goods_type', array('id'=>$id));
+	}
 }

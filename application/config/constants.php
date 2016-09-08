@@ -22,7 +22,7 @@ define('DIR_WRITE_MODE', 0777);
 define('CSS_ADMIN_URL','http://css.yaofang.cn/jf_shop/admin/');
 define('JS_ADMIN_URL','http://js.yaofang.cn/jf_shop/admin/');
 
-define('IMG_ADMIN_URL','http://img.yaofang.cn/community');
+define('IMG_ADMIN_URL','http://shop.yaofang.cn/uploads/');
 define('UPLOADS_URL', './uploads/');   //上传图片路径
 defined('SITE_VERSION') or define ('SITE_VERSION', time ());        //随机版本号
 
