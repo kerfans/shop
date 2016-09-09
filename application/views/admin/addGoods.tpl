@@ -46,25 +46,29 @@
             <tbody>
             {foreach from=$data item=foo}
                 <tr>
-                    <td>{$foo['goods_id']}</td>
-                    <td>{$foo['goods_name']}</td>
-                    <td>{$foo['market_price']}</td>
-                    <td>{$foo['shop_id']}</td>
-                    <td>{$foo['goods_number']}</td>
+                    <td style="line-height: 30px">{$foo['goods_id']}</td>
+                    <td style="line-height: 30px">{$foo['goods_name']}</td>
+                    <td style="line-height: 30px">{$foo['market_price']}</td>
+                    <td style="line-height: 30px">{$foo['shop_id']}</td>
+                    <td style="line-height: 30px">{$foo['goods_number']}</td>
                     {if $foo['prescription_type'] eq 0}
-                        <td>处方药</td>
+                        <td style="line-height: 30px">处方药</td>
                     {elseif $foo['prescription_type'] eq 1}
-                        <td>非处方药</td>
+                        <td style="line-height: 30px">非处方药</td>
                     {else}
-                        <td>非药品</td>
+                        <td style="line-height: 30px">非药品</td>
                     {/if}
                     {if $foo['is_on_sale'] eq 0}
-                        <td>下架中</td>
+                        <td style="line-height: 30px">下架中</td>
                     {else}
-                        <td>上架中</td>
+                        <td style="line-height: 30px">上架中</td>
                     {/if}
-                    <td>
+                    <td style="line-height: 30px">
+                        {if $foo['id']}
+                        <a class="btn btn-sm btn-warning" href="#">已添加</a>
+                        {else}
                         <a class="btn btn-sm btn-success" href="/index.php/admin/addGoods/edit_goods/{$foo['goods_id']}">编辑并添加</a>
+                        {/if}
                     </td>
                 </tr>
             {/foreach}

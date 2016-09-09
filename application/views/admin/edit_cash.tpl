@@ -159,11 +159,11 @@
         <br>
             <fieldset>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="ds_username" style="color: red">类别（不可更改）</label>
+                    <label class="col-sm-2 control-label" for="ds_username" >类别（不可更改）</label>
                     <div class="col-sm-4">
                             <label class="form-control">虚拟</label>
                     </div>
-                    <label class="col-sm-2 control-label" for="ds_password" style="color: red">类型（不可更改）</label>
+                    <label class="col-sm-2 control-label" for="ds_password" >类型（不可更改）</label>
                     <div class="col-sm-4">
                             <label class="form-control">代金券</label>
                     </div>

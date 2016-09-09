@@ -19,7 +19,6 @@ class AdsList extends MY_Controller {
             $this->assign('errors',$error);
             $this->display('admin/addAds.tpl');
         }else{
-            $this->session->set_userdata(array('aid'=>'1'));
             //dd($_POST);
             $this->load->library('form_validation');
             $this->form_validation->set_rules('title', '广告标题', 'trim|required|max_length[12]');
@@ -32,7 +31,7 @@ class AdsList extends MY_Controller {
             }else{
                 //上传图片处理
                 $config['upload_path']      = UPLOADS_URL.'ad';
-                $config['allowed_types']    = 'gif|jpg|png|jpeg';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|bmp';
                 $config['max_size']         = 2048;
                 $config['max_width']        = 1600;
                 $config['max_height']       = 800;
@@ -63,32 +62,33 @@ class AdsList extends MY_Controller {
                     $config['width']     = 750;
                     $config['height']   = 500;
                     $this->image_lib->initialize($config);
-                }
-                if ( !$this->image_lib->resize())
-                {
-                    $error =  $this->image_lib->display_errors();
-                    $this->assign('errors',$error);
-                    $this->display('admin/addAds.tpl');
-                }else{
-                    //生成缩略图名称
-                    $min_pic = $data['upload_data']['raw_name'].'_thumb'.$data['upload_data']['file_ext'];
-                    //删除原图
-                    unlink($data['upload_data']['full_path']);                   
-                    //dd($min_pic);
-                    $data = $this->input->post();  //接收所有表单数据
-                    $data['type']=1;//默认轮播type=1
-                    $data['picture'] = 'ad/'.$min_pic;   
-                    $data['aaid'] = $this->session->userdata('aid'); 
-                    $data['atime']=time();           
-                    $insert_id=$this->ad->insert($data);
-                    //dd($insert_id);
-                    if($insert_id)
+                
+                    if ( !$this->image_lib->resize())
                     {
-                        echo '<meta charset="utf-8"/><script>alert("添加成功");</script>';
-                        redirect('admin/adsList/ads_list','refresh');          
+                        $error =  $this->image_lib->display_errors();
+                        $this->assign('errors',$error);
+                        $this->display('admin/addAds.tpl');
                     }else{
-                        echo '<meta charset="utf-8"/><script>alert("添加失败");</script>';
-                        redirect('admin/adsList/index','refresh');
+                        //生成缩略图名称
+                        $min_pic = $data['upload_data']['raw_name'].'_thumb'.$data['upload_data']['file_ext'];
+                        //删除原图
+                        unlink($data['upload_data']['full_path']);                   
+                        //dd($min_pic);
+                        $data = $this->input->post();  //接收所有表单数据
+                        $data['type']=1;//默认轮播type=1
+                        $data['picture'] = 'ad/'.$min_pic;   
+                        $data['aaid'] = $this->session->userdata('id'); 
+                        $data['atime']=time();           
+                        $insert_id=$this->ad->insert($data);
+                        //dd($insert_id);
+                        if($insert_id)
+                        {
+                            echo '<meta charset="utf-8"/><script>alert("添加成功");</script>';
+                            redirect('admin/adsList/ads_list','refresh');          
+                        }else{
+                            echo '<meta charset="utf-8"/><script>alert("添加失败");</script>';
+                            redirect('admin/adsList/index','refresh');
+                        }
                     }
                 }
                 
@@ -153,7 +153,7 @@ class AdsList extends MY_Controller {
             }else{
                 //上传图片处理
                 $config['upload_path']      = UPLOADS_URL.'ad';
-                $config['allowed_types']    = 'gif|jpg|png|jpeg';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|bmp';
                 $config['max_size']         = 2048;
                 $config['max_width']        = 1600;
                 $config['max_height']       = 800;
@@ -172,6 +172,7 @@ class AdsList extends MY_Controller {
                     }else{
                         $this->assign('errors',$error);
                         $this->display('admin/updateAd.tpl');
+                        die;
                     }
                 }else{
                     $data = array('upload_data' => $this->upload->data());

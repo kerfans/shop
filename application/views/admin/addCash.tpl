@@ -45,18 +45,22 @@
             <tbody>
                 {foreach from=$data item=foo}
                     <tr>
-                        <td>{$foo['type_id']}</td>
-                        <td>{$foo['type_name']}</td>
-                        <td>{$foo['type_money']}</td>
+                        <td style="line-height: 30px">{$foo['type_id']}</td>
+                        <td style="line-height: 30px">{$foo['type_name']}</td>
+                        <td style="line-height: 30px">{$foo['type_money']}</td>
                     {if {$foo['send_type']} eq '2'}
-                        <td>全场卷</td>
+                        <td style="line-height: 30px">全场卷</td>
                     {else}
-                        <td>单品卷</td>
+                        <td style="line-height: 30px">单品卷</td>
                     {/if}
-                        <td>{$foo['use_start_date']|date_format:"%Y-%m-%d %H:%M:%S"}</td>
-                        <td>{$foo['use_end_date']|date_format:"%Y-%m-%d %H:%M:%S"}</td>
-                        <td>
+                        <td style="line-height: 30px">{$foo['use_start_date']|date_format:"%Y-%m-%d %H:%M:%S"}</td>
+                        <td style="line-height: 30px">{$foo['use_end_date']|date_format:"%Y-%m-%d %H:%M:%S"}</td>
+                        <td style="line-height: 30px">
+                            {if $foo['id']}
+                            <a class="btn btn-sm btn-warning" href="#">已添加</a>
+                            {else}
                             <a class="btn btn-sm btn-success" href="/index.php/admin/addCash/edit_cash/{$foo['type_id']}">编辑并添加</a>
+                            {/if}
                         </td>
                     </tr>
                 {/foreach}

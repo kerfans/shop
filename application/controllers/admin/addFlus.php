@@ -73,7 +73,7 @@ class AddFlus extends MY_Controller {
                         $this->display('admin/addFlus.tpl');
                     } else {
                         //生成缩略图名称和路径
-                        $min_pic = $data['upload_data']['file_path'] . $data['upload_data']['raw_name'] . '_thumb' . $data['upload_data']['file_ext'];
+                        $min_pic =UPLOADS_URL.date("Y/m/d").'/'.$data['upload_data']['raw_name'].'_thumb'.$data['upload_data']['file_ext'];
                         //删除原图
                         unlink($data['upload_data']['full_path']);
 
@@ -92,8 +92,13 @@ class AddFlus extends MY_Controller {
                         unset($message['flow']);
                         unset($message['operator']);
                         $res = $this->goods->goods($message);    //存入到商品列表
-                        if($res){
-                            redirect('admin/addCash');
+                        if($res)
+                        {
+                            echo '<meta charset="utf-8"/><script>alert("添加成功");</script>';
+                            redirect('admin/addFlus','refresh');
+                        }else{
+                            echo '<meta charset="utf-8"/><script>alert("添加失败");</script>';
+                            redirect('admin/addFlus','refresh');
                         }
                     }
                 }

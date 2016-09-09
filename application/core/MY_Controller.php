@@ -7,7 +7,7 @@
 class MY_Controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
-        //pp($this->uri->segment(1));
+        //pp($this->session->all_userdata());
         if($this->uri->segment(1) != 'admin_login' ){
             if(!$this->session->userdata('name')){
                 redirect('admin_login','refresh');

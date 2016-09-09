@@ -15,21 +15,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" style="color: red">显示标题</label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="ds_host" name="title" type="text" value="" placeholder="请填入显示标题" required/>
+                            <input class="form-control" id="ds_host" name="title" type="text" value="{$da['title']}" placeholder="请填入显示标题" required/>
                         </div>
                         <label class="col-sm-2 control-label" style="color: red">流量包大小<br>（单位M）</label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="ds_host" name="flow" type="text" value="" placeholder="请填入流量包大小" required/>
+                            <input class="form-control" id="ds_host" name="flow" type="text" value="{$data['flow']}" placeholder="请填入流量包大小" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="ds_username" style="color: red">兑换需求积分</label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="ds_host" name="cost_points" type="text" value="" placeholder="请填入兑换需求积分" required/>
+                            <input class="form-control" id="ds_host" name="cost_points" type="text" value="{$da['cost_points']}" placeholder="请填入兑换需求积分" required/>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username" style="color: red">库存数量</label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="ds_host" name="stock_num" type="text" value="100" placeholder="请填入库存数量" required/>
+                            <input class="form-control" id="ds_host" name="stock_num" type="text" value="{$da['stock_num']}" placeholder="请填入库存数量" required/>
                         </div>
                     </div>
                 </fieldset>
@@ -37,14 +37,14 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="ds_username" style="color: red">权重<br>(越大越靠前)</label>
                         <div class="col-sm-4">
-                            <input class="form-control" id="ds_host" name="sort" type="text" value="0" placeholder="请填入权重" required/>
+                            <input class="form-control" id="ds_host" name="sort" type="text" value="{$da['sort']}" placeholder="请填入权重" required/>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username" style="color: red">运营商</label>
                         <div class="col-sm-4">
                             <select id="disabledSelect" name="operator" class="form-control">
-                                <option value="1">移动</option>
-                                <option value="2">联通</option>
-                                <option value="3">电信</option>
+                                <option value="1"{if $data['operator'] == 1} selected{/if}>移动</option>
+                                <option value="2"{if $data['operator'] == 2} selected{/if}>联通</option>
+                                <option value="3"{if $data['operator'] == 3} selected{/if}>电信</option>
                             </select>
                         </div>
                     </div>
@@ -55,15 +55,15 @@
                         <label class="col-sm-2 control-label" for="ds_username" style="color: red">是否上架</label>
                         <div class="col-sm-4">
                             <select id="disabledSelect" name="is_sale" class="form-control">
-                                <option value="1">上架</option>
-                                <option value="0">下架</option>
+                                <option value="1"{if $da['is_sale'] == 1} selected{/if}>上架</option>
+                                <option value="0"{if $da['is_sale'] == 0} selected{/if}>下架</option>
                             </select>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_password" style="color: red">是否热销</label>
                         <div class="col-sm-4">
                             <select id="disabledSelect" name="is_hot" class="form-control">
-                                <option value="0">普通</option>
-                                <option value="1">热销</option>
+                                <option value="0"{if $da['is_hot'] == 0} selected{/if}>普通</option>
+                                <option value="1"{if $da['is_hot'] == 1} selected{/if}>热销</option>
                             </select>
                         </div>
                     </div>
@@ -83,9 +83,9 @@
                 <br><br>
                 <fieldset>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="ds_username" style="color: red" required>流量说明描述</label>
+                        <label class="col-sm-2 control-label" for="ds_username" style="color: red">流量说明描述</label>
                         <div class="col-sm-4">
-                            <textarea name="describe" id="" cols="50" rows="10"></textarea>
+                            <textarea name="describe" id="" cols="50" rows="10" required>{$da['describe']}</textarea>
                         </div>
                     </div>
                 </fieldset>
@@ -102,10 +102,11 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div id="imgdiv"><img id="imgShow" width="300" /></div>
+                            <div id="imgdiv"><img id="imgShow" src="{$da['picture']}" width="300" /></div>
+                            <input type="hidden" name="picture" value="{$da['picture']}">
                         </div>
                     </div>
                 </fieldset>
-        </form>
+    </form>
     </div>
 {/block}

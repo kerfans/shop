@@ -35,4 +35,39 @@ class Goods_model extends CI_Model
         $data=$this->db->query($sql);
         return $data->result();
     }
+    //查询积分商品信息
+    function select($field,$where='',$order='',$limit='',$other='')
+    {
+        if($where)
+        {
+            $where=' where '.$where;
+        }
+        if($order)
+        {
+            $order=' order by '.$order;
+        }
+        if($limit)
+        {
+            $limit=' limit '.$limit;
+        }
+        if($other)
+        {
+            $other=' pg, '.$other;
+        }
+        $sql="select {$field} from ecs_point_goods {$other} {$where} {$order} {$limit}";
+        //dd($sql);
+        $data=$this->db->query($sql);
+        return $data->result();
+    }
+    /**
+     * 删除商品
+     * $goods_id   传入商品ID
+     * return 修改结果
+     */
+    public function delete($id)
+    {
+        $this->db->where('id', $id);
+        $res = $this->db->delete('ecs_point_goods');
+        return $res;
+    }
 }

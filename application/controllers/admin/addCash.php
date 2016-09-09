@@ -35,6 +35,7 @@ class AddCash extends MY_Controller
                 $type = $this->input->post('type');            //输入类型0ID ，1名称
                 $content = $this->input->post('content');
                 $res = $this -> bouns -> select_bonus($type,$content);
+                //dd($res);
                 $this -> assign('data', $res);
                 $this->display('admin/addCash.tpl');
             }
@@ -142,6 +143,8 @@ class AddCash extends MY_Controller
                         $message['class'] = 2;            //默认虚拟类别
                         $message['tid'] = 1;              //默认代金券分类
                         $this->goods->goods($message);    //存入到商品列表
+                        echo '<meta charset="utf-8"/><script>alert("添加成功");</script>';
+                        redirect('admin/addCash','refresh');
                     }
                 }
             }

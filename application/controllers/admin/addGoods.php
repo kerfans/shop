@@ -35,6 +35,7 @@ class AddGoods extends MY_Controller {
                 $type = $this->input->post('type');            //输入类型0，ID ，1名称
                 $content = $this->input->post('content');
                 $res = $this -> good -> select_good($type,$content);
+                //dd($res);
                 $this -> assign('data', $res);
                 $this->display('admin/addGoods.tpl');
             }
@@ -49,7 +50,6 @@ class AddGoods extends MY_Controller {
         $filed = "id,class,name,status";              //查询分类表（类别ID，分类ID,名称，状态）
         $where = "class = 1";                         //默认为实体商品分类
         $rem = $this->type->select($filed,$where);    //获取当前所有分类
-        //pp($rem);
         $this->assign('data', $res);
         $this->assign('types',$rem);
         if(!$_POST){
@@ -89,7 +89,7 @@ class AddGoods extends MY_Controller {
                     {
                         $error = array('error' => $this->upload->display_errors());
                         $this->assign('errors',$error);
-                        $this->display('admin/edit_cash.tpl');
+                        $this->display('admin/edit_goods.tpl');
                     }
                     else
                     {
@@ -123,7 +123,7 @@ class AddGoods extends MY_Controller {
                         if(!$this->image_lib->resize()) {
                             $error = $this->image_lib->display_errors();
                             $this->assign('errors', $error);
-                            $this->display('admin/edit_cash.tpl');
+                            $this->display('admin/edit_goods.tpl');
                         }else{
                             //生成缩略图名称
                             $big_pic =UPLOADS_URL.date("Y/m/d").'/'.$data['upload_data']['raw_name'].'_big'.$data['upload_data']['file_ext'];
@@ -155,14 +155,14 @@ class AddGoods extends MY_Controller {
                     $message['class'] = 1;            //默认实体类别
                     $red = $this->goods->goods($message);    //存入到商品列表
                 }
-            }
-            if($red)
-            {
-                echo '<meta charset="utf-8"/><script>alert("添加成功");</script>';
-                redirect('admin/addGoods','refresh');
-            }else{
-                echo '<meta charset="utf-8"/><script>alert("添加失败");</script>';
-                redirect('admin/addGoods','refresh');
+                if($red)
+                {
+                    echo '<meta charset="utf-8"/><script>alert("添加成功");</script>';
+                    redirect('admin/addGoods','refresh');
+                }else{
+                    echo '<meta charset="utf-8"/><script>alert("添加失败");</script>';
+                    redirect('admin/addGoods','refresh');
+                }
             }
         }
     }

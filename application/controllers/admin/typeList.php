@@ -20,7 +20,6 @@ class TypeList extends MY_Controller {
         if(!$_POST){
             $this->display('admin/addType.tpl');
         }else{
-            $this->session->set_userdata(array('aid'=>'1'));
             //dd($_POST);
             $this->load->library('form_validation');
             $this->form_validation->set_rules('typename', '类型名称', 'trim|required|is_unique[ecs_point_goods_type.name]');
@@ -38,7 +37,7 @@ class TypeList extends MY_Controller {
                     'name'=>$typename,
                     'status'=>1,
                     'ctime'=>time(),
-                    'caid'=>$this->session->userdata('aid')
+                    'caid'=>$this->session->userdata('id')
                 );
                 $insert_id=$this->type->insert($data);
                 if($insert_id)
@@ -58,14 +57,14 @@ class TypeList extends MY_Controller {
     //分类列表
     public function type_list()
     {
-        $res=$this->type->select('id,class,name,status','','status desc,id asc','');
+        $alltype=$this->type->select('id,class,name,status','','status desc,id asc','');
         $entity=array();
         $virtual=array();
         // dd($res);
         // exit;
         $entitynum=1;
         $virtualnum=1;
-        foreach($res as $k=>$v)
+        foreach($alltype as $k=>$v)
         {     
             if($v->class==1){
                 array_push($entity,$v);
@@ -79,6 +78,7 @@ class TypeList extends MY_Controller {
 
         }
         //dd($virtual);
+        //选择分类
         $this->assign('entity',$entity);
         $this->assign('virtual',$virtual);
 
@@ -117,7 +117,6 @@ class TypeList extends MY_Controller {
         {       
             $this->display('admin/updateType.tpl');
         }else{
-            $this->session->set_userdata(array('aid'=>'1'));
             //dd($_POST);
             $typename = $this->input->post('typename');
             $classid=$this->input->post('tid');
@@ -144,7 +143,7 @@ class TypeList extends MY_Controller {
                     'status'=>$status,
                     'remark'=>$remark,
                     'mtime'=>time(),
-                    'maid'=>$this->session->userdata('aid')
+                    'maid'=>$this->session->userdata('id')
                 );
                 //dd($data);
                 $affected_rows=$this->type->update($classid,$data);

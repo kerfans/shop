@@ -20,7 +20,7 @@
 
     <form class="form-signin" role="form" action="" method="post">
         <h2 class="form-signin-heading text-center">药房网积分商城</h2><br>
-        <input type="text" name="name" class="form-control" placeholder="请填写用户名" required><br>
+        <input type="text"        name="name" class="form-control" placeholder="请填写用户名" required><br>
         <input type="password" name="password" class="form-control" placeholder="请填写密码" required>
 
         <div class=" form-group">

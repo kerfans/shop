@@ -20,26 +20,56 @@ class Bonus_model extends CI_Model
      */
     function select_bonus($type,$content)
     {
-       $this->db->select('type_id,type_name,type_money,send_type,expire_type,use_start_date,use_end_date,min_goods_amount,mod_type,prescription_type,is_all,dealer_id');
-       $this->db->from('ecs_bonus_type');
+       $this->db->select('bt.type_id,bt.type_name,bt.type_money,bt.send_type,bt.expire_type,bt.use_start_date,bt.use_end_date,bt.min_goods_amount,bt.mod_type,bt.prescription_type,bt.is_all,bt.dealer_id,pg.id');
+       $this->db->from('ecs_bonus_type bt');
+       $this->db->join('ecs_point_goods pg','bt.type_id=pg.pid','left');
         if($type == 0){
-            $this->db->where("type_id",$content);
+            $this->db->where("bt.type_id",$content);
         }else{
-            $this->db->like("type_name",$content);
+            $this->db->like("bt.type_name",$content);
         }
-        $this->db->limit(50);
+        $this->db->limit(100);
         $ref = $this->db->get();
         return $ref -> result_array();
     }
+    /*---------------------------------------------------------------------------------------*/
+    /*--------------------------------代金券编辑----------------------------------------------*/
+    /*---------------------------------------------------------------------------------------*/
     /**
-     * 查询原代金券表（ecs_bonus_type）信息数量
+     * 查询商品表代金券（ecs_point_goods）信息
      * return 查询结果数量
      */
-    function bonus_num()
+    function cash_goods($goods_id,$id='')
     {
-        $rem = $this->db->count_all_results('ecs_bonus_type');
-        return $rem;
+        $rm = $this->select_bonus(0,$goods_id);
+        $res[] = $rm[0];
+        $res[] = $this->seeGoods($id);
+        return $res;
     }
-
+    /**
+     * 查询商品表信息（编辑实体商品用）
+     * $goods_id    传入商品ID
+     * return 查询结果数组
+     */
+    function seeGoods($id)
+    {
+        $this->db->select('title,tid,cost_points,stock_num,is_sale,sort,is_hot,picture,describe');
+        $this->db->from('ecs_point_goods');
+        $this->db->where('id',$id);
+        $res = $this->db->get()->row_array();
+        return $res;
+    }
+    /**
+     * 更新商品信息(ecs_point_goods)（编辑实体商品用）
+     * $goods_id   传入修改商品ID
+     * $message    传入修改的字段
+     * return 修改结果
+     */
+    public function update_cash($id,$message)
+    {   
+        $this->db->where('id', $id);
+        $res = $this->db->update('ecs_point_goods', $message);
+        return $res;
+    }
 
 }
